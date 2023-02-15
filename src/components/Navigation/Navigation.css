@@ -1,0 +1,71 @@
+.nav {
+    grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+}
+
+.nav__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.nav__links_movie {
+    gap: 16px;
+    margin-left: 85px;
+}
+
+.nav__links_sign {
+    gap: 30px;
+}
+
+.nav__link {
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity .2s;
+    color: #FFFFFF;
+}
+
+.nav__link:hover {
+    opacity: .6;
+}
+
+.nav__link_active {
+    font-weight: 500;
+}
+
+.nav__link_movie {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.nav__link_account {
+    flex-wrap: wrap;
+    align-content: center;
+    display: flex;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+    border: 2px solid #AAAAAA;
+    border-radius: 50px;
+    gap: 7px;
+    padding: 0 10px;
+}
+
+.nav__link_main {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+}
+
+.nav__link_signin {
+    background: #3DDC84;
+    border-radius: 3px;
+    color: #000000;
+    padding: 9px 20px;
+}
