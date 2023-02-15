@@ -1,6 +1,7 @@
 .promo {
     color: #FFFFFF;
     background-color: #073042;
+    padding-bottom: 75px;
 }
 
 .promo__title {
@@ -8,7 +9,7 @@
     font-size: 50px;
     line-height: 1.16;
     font-weight: 400;
-    margin: 0 70px;
+    margin: 75px 70px 36px;
 }
 
 .promo__text {
@@ -17,7 +18,7 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
-    margin: 0 70px;
+    margin: 0 70px 152px;
 }
 
 .promo__link {
@@ -32,6 +33,7 @@
     text-decoration: none;
     transition: opacity .2s;
     color: #FFFFFF;
+    padding: 10px 19px;
 }
 
 .promo__link:hover {
@@ -40,13 +42,12 @@
 
 .promo__logo {
     position: absolute;
-    background-image: url();
+    background-image: url(../../images/promo-logo.svg);
     background-size: cover;
-    right: -210px;
-    top: 0;
-    width: 877px;
-    height: 877px;
-    z-index: -1;
+    right: 186px;
+    top: 149px;
+    width: 310px;
+    height: 304px;
 }
 
 
