@@ -1,7 +1,7 @@
 .promo {
     color: #FFFFFF;
     background-color: #073042;
-    padding-bottom: 75px;
+    padding-bottom: 85px;
 }
 
 .promo__title {
@@ -18,7 +18,7 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
-    margin: 0 70px 152px;
+    margin: 0 70px 156px;
 }
 
 .promo__link {
