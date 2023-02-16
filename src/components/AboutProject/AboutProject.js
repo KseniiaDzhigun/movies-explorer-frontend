@@ -24,28 +24,6 @@ const AboutProject = () => {
                     </p>
                 </li>
             </ul>
-            {/* <ul className="project__scale">
-                <li className="project__stage">
-                    <p className="project__text project__text_time">
-                        1 неделя
-                    </p>
-                </li>
-                <li className="project__stage">
-                    <p className="project__text project__text_time">
-                        4 недели
-                    </p>
-                </li>
-                <li>
-                    <p className="project__text project__text_type">
-                        Back-end
-                    </p>
-                </li>
-                <li>
-                    <p className="project__text project__text_type">
-                        Front-end
-                    </p>
-                </li>
-            </ul> */}
             <ul className="project__scale">
                 <li className="project__text project__text_stage project__text_first-stage">
                         1 неделя
