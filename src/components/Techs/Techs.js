@@ -1,11 +1,12 @@
 import './Techs.css';
-import SectionTitle from '../SectionTitle/SectionTitle';
 
 const Techs = () => {
 
     return (
         <section className="techs">
-            <SectionTitle text="Технологии" />
+            <h2 className="techs__title">
+                Технологии
+            </h2>
             <h3 className="techs__subtitle">
                 7 технологий
             </h3>

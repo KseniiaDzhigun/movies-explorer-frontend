@@ -1,11 +1,12 @@
 import './AboutProject.css';
-import SectionTitle from '../SectionTitle/SectionTitle';
 
 const AboutProject = () => {
 
     return (
         <section className="project">
-            <SectionTitle text="О проекте" />
+            <h2 className="project__title">
+                О проекте
+            </h2>
             <ul className="project__table">
                 <li className="project__cell">
                     <h3 className="project__subtitle">
@@ -26,16 +27,16 @@ const AboutProject = () => {
             </ul>
             <ul className="project__scale">
                 <li className="project__text project__text_stage project__text_first-stage">
-                        1 неделя
+                    1 неделя
                 </li>
                 <li className="project__text project__text_stage project__text_second-stage">
-                        4 недели
+                    4 недели
                 </li>
                 <li className="project__text project__text_type">
-                        Back-end
+                    Back-end
                 </li>
                 <li className="project__text project__text_type">
-                        Front-end
+                    Front-end
                 </li>
             </ul>
 

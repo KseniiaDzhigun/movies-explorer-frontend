@@ -1,8 +1,18 @@
 .me {
     margin: 0 70px;
-    padding: 90px 0 0;
+    padding: 112px 0 0;
     color: #FFFFFF;
     background-color: #202020;
+}
+
+.me__title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.23;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 22px;
+    letter-spacing: -0.04em;
 }
 
 .me__info {

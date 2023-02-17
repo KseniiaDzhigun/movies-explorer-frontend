@@ -1,12 +1,13 @@
 import './AboutMe.css';
-import SectionTitle from '../SectionTitle/SectionTitle';
 import avatar from '../../images/me-avatar.jpg';
 
 const AboutMe = () => {
 
     return (
         <section className="me">
-            <SectionTitle text="Студент" />
+            <h2 className="me__title">
+                Студент
+            </h2>
             <div className="me__info">
                 <div className="me__text">
                     <h3 className="me__name">

@@ -4,6 +4,16 @@
     color: #FFFFFF;
 }
 
+.project__title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.23;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 22px;
+    letter-spacing: -0.04em;
+}
+
 .project__table {
     display: flex;
     gap: 56px;

@@ -1,6 +1,6 @@
 .portfolio {
     margin: 0 70px;
-    padding: 101px 0 107px;
+    padding: 101px 0 104px;
     background-color: #202020;
 }
 
@@ -53,5 +53,5 @@
 }
 
 .portfolio__icon {
-    padding-top: 2px;
+    padding-top: 3px;
 }

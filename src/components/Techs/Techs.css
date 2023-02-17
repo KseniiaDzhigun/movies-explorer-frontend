@@ -1,11 +1,21 @@
 .techs {
-    margin: 0 70px;
+    margin: 0;
     padding: 98px 0;
     color: #FFFFFF;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     background-color: #272727;
+}
+
+.techs__title {
+    margin: 0 70px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.23;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 22px;
+    letter-spacing: -0.04em;
 }
 
 .techs__subtitle {
