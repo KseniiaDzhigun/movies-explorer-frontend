@@ -1,0 +1,59 @@
+.me {
+    margin: 0 70px;
+    padding: 90px 0 0;
+    color: #FFFFFF;
+    background-color: #202020;
+}
+
+.me__info {
+    display: flex;
+    margin: 66px 0 0;
+    justify-content: space-between;
+}
+
+.me__text {
+    max-width: 599px;
+}
+
+.me__name {
+    margin: 0 0 18px;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 1.16;
+    letter-spacing: -0.04em;
+}
+
+.me__job-age {
+    margin: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.11;
+}
+
+.me__detailed {
+    margin: 26px 0 99px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.57;
+}
+
+.me__link {
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity .2s;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.21;
+}
+
+.me__link:hover {
+    opacity: .6;
+}
+
+.me__avatar {
+    border-radius: 12px;
+    object-fit: cover;
+    width: 270px;
+    height: 327px;
+}

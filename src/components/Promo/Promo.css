@@ -4,12 +4,20 @@
     padding-bottom: 85px;
 }
 
+.promo__content {
+    margin: 75px 70px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.promo__info {}
+
 .promo__title {
     max-width: 640px;
     font-size: 50px;
     line-height: 1.16;
     font-weight: 400;
-    margin: 75px 70px 36px;
+    margin: 0 0 38px;
 }
 
 .promo__text {
@@ -18,11 +26,11 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
-    margin: 0 70px 156px;
+    margin: 0 0 154px;
 }
 
 .promo__link {
-    margin: 0 70px;
+    margin: 0;
     opacity: 0.6;
     border: 1px solid #FFFFFF;
     border-radius: 3px;
@@ -41,11 +49,8 @@
 }
 
 .promo__logo {
-    position: absolute;
     background-image: url(../../images/promo-logo.svg);
     background-size: cover;
-    right: 186px;
-    top: 149px;
     width: 310px;
     height: 304px;
 }

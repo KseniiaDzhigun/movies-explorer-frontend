@@ -5,6 +5,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    background-color: #272727;
 }
 
 .techs__subtitle {
@@ -44,5 +45,5 @@
     background-color: #303030;
     width: 90px;
     border-radius: 10px;
-    padding: 20px 0px;
+    padding: 22px 0px;
 }
