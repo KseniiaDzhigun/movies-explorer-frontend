@@ -68,12 +68,19 @@
     height: 327px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 908px) {
     .me {
         margin: 0 50px;
         padding: 91px 0 0;
     }
 
+    .me__avatar {
+        width: 255px;
+        height: 307px;
+    }
+}
+
+@media screen and (max-width: 768px) {
     .me__name {
         margin: 0 0 16px;
         font-size: 40px;
@@ -90,9 +97,45 @@
         font-size: 12px;
         line-height: 1.5;
     }
+}
+
+@media screen and (max-width: 320px) {
+    .me {
+        margin: 0 14px;
+        padding: 69px 0 0;
+    }
+
+    .me__title {
+        font-size: 18px;
+        line-height: 1.22;
+        padding-bottom: 28px;
+    }
+
+    .me__info {
+        flex-direction: column-reverse;
+        align-items: center;
+        margin: 60px 0 0;
+        gap: 40px;
+    }
+
+    .me__name {
+        margin: 0 0 20px;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .me__job-age {
+        font-size: 11px;
+    }
+
+    .me__detailed {
+        margin: 20px 0 40px;
+        font-size: 11px;
+        line-height: 1.45;
+    }
 
     .me__avatar {
-        width: 255px;
-        height: 307px;
+        width: 292px;
+        height: 352px;
     }
 }
