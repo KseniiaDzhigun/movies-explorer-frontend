@@ -2,7 +2,6 @@
     margin: 0 70px;
     padding: 112px 0 0;
     color: #FFFFFF;
-    background-color: #202020;
 }
 
 .me__title {
@@ -18,6 +17,7 @@
 .me__info {
     display: flex;
     margin: 66px 0 0;
+    gap: 50px;
     justify-content: space-between;
 }
 
@@ -66,4 +66,33 @@
     object-fit: cover;
     width: 270px;
     height: 327px;
+}
+
+@media screen and (max-width: 768px) {
+    .me {
+        margin: 0 50px;
+        padding: 91px 0 0;
+    }
+
+    .me__name {
+        margin: 0 0 16px;
+        font-size: 40px;
+        line-height: 1;
+    }
+
+    .me__job-age {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .me__detailed {
+        margin: 20px 0 87px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .me__avatar {
+        width: 255px;
+        height: 307px;
+    }
 }

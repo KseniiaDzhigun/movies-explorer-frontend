@@ -1,7 +1,6 @@
 .portfolio {
     margin: 0 70px;
     padding: 101px 0 104px;
-    background-color: #202020;
 }
 
 .portfolio__title {
@@ -11,8 +10,6 @@
     font-size: 18px;
     line-height: 1.11;
 }
-
-.portfolio__menu {}
 
 .portfolio__project {
     width: 100%;
@@ -54,4 +51,21 @@
 
 .portfolio__icon {
     padding-top: 3px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .portfolio {
+        margin: 0 50px;
+        padding: 91px 0 90px;
+    }
+
+    .portfolio__link {
+        font-size: 28px;
+        line-height: 1.79;
+    }
+
+    .portfolio__title {
+        margin: 0 0 48px;
+    }
 }

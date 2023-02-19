@@ -71,3 +71,25 @@
     grid-template-rows: 1fr 1fr;
     justify-items: center;
 }
+
+@media screen and (max-width: 768px) {
+    .project {
+        margin: 0 50px;
+        padding: 91px 0 88px;
+    }
+
+    .project__table {
+        gap: 37px;
+    }
+
+    .project__subtitle {
+        margin: 70px 0 22px;
+    }
+
+    .project__text_description {
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 0 0 93px;
+    }
+    
+}
