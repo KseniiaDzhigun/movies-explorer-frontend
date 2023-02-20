@@ -1,14 +1,18 @@
 import './Movies.css';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import SearchForm from '../SearchForm/SearchForm'
 
 const Movies = ({ loggedIn }) => {
 
     return (
-        <main className="content">
-            <Header loggedIn={loggedIn}/>
-            <Footer />
+        <>
+        <Header loggedIn={loggedIn}/>
+        <main className="movies__content">
+            <SearchForm />
         </main>
+        <Footer />
+    </>
     );
 }
 
