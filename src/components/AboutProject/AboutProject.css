@@ -94,7 +94,14 @@
     
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 571px) {
+    .project__subtitle {
+        font-size: 18px;
+        line-height: 1.22;
+    }
+}
+
+@media screen and (max-width: 532px) {
     .project {
         margin: 0 18px;
         padding: 70px 0 67px;
@@ -113,8 +120,6 @@
 
     .project__subtitle {
         margin: 0 0 16px;
-        font-size: 18px;
-        line-height: 1.22;
     }
     
     .project__text {

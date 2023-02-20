@@ -42,7 +42,7 @@
     font-size: 30px;
     line-height: 1.67;
     letter-spacing: -0.04em;
-    padding-bottom: 17px;
+    padding-bottom: 16px;
 }
 
 .portfolio__link:hover {
@@ -70,7 +70,7 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 532px) {
     .portfolio {
         margin: 0 14px;
         padding: 69px 0;

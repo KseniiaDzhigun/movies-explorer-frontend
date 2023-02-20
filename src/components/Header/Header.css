@@ -29,7 +29,7 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 532px) {
     .header {
         margin: 0 14px;
     }

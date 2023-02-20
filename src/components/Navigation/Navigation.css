@@ -70,7 +70,7 @@
     padding: 9px 20px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 532px) {
     .nav__links_sign {
         gap: 14px;
     }

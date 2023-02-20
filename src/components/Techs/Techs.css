@@ -82,6 +82,7 @@
 
     .techs__list {
         margin: 83px auto 0;
+        padding: 0 50px;
     }
 
     .techs__text_item {
@@ -91,7 +92,7 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 532px) {
     .techs {
         padding: 70px 0;
     }
@@ -110,7 +111,7 @@
 
     .techs__text_description {
         font-size: 11px;
-        margin: 0 18px;
+        margin: 0 33px;
     }
 
     .techs__list {

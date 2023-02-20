@@ -99,7 +99,27 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 604px) {
+    .me__info {
+        gap: 30px;
+    }
+
+    .me__name {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .me__job-age {
+        font-size: 11px;
+    }
+
+    .me__detailed {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+}
+
+@media screen and (max-width: 532px) {
     .me {
         margin: 0 14px;
         padding: 69px 0 0;
@@ -120,18 +140,10 @@
 
     .me__name {
         margin: 0 0 20px;
-        font-size: 30px;
-        line-height: 1.2;
-    }
-
-    .me__job-age {
-        font-size: 11px;
     }
 
     .me__detailed {
         margin: 20px 0 40px;
-        font-size: 11px;
-        line-height: 1.45;
     }
 
     .me__avatar {
