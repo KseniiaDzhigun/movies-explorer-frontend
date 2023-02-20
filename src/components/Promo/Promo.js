@@ -1,12 +1,10 @@
 import './Promo.css';
-import { Link } from 'react-router-dom';
-import Header from '../Header/Header';
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
-const Promo = ({ loggedIn }) => {
+const Promo = () => {
 
     return (
         <section className="promo">
-            <Header loggedIn={loggedIn} />
             <div className="promo__content">
                 <div className="promo__info">
                     <h1 className="promo__title">
@@ -15,9 +13,9 @@ const Promo = ({ loggedIn }) => {
                     <p className="promo__text">
                         Листайте ниже, чтобы узнать больше про этот проект и его создателя.
                     </p>
-                    <Link to="/movies" className="promo__link" >
+                    <AnchorLink href="#about" className="promo__link">
                         Узнать больше
-                    </Link>
+                    </AnchorLink>
                 </div>
                 <div class="rotation promo__logo"></div>
             </div>

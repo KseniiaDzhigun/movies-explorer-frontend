@@ -1,4 +1,4 @@
-.content {
+.main__content {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 1279px) {
-    .content {
+    .main__content {
         width: 100vw;
     }
 }
