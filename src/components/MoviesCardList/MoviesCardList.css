@@ -1,0 +1,32 @@
+.cards {
+    margin: 0 70px 80px;
+    padding: 65px 0 0;
+    border-top: 1px solid #424242;
+    display: flex;
+    flex-direction: column;
+}
+
+.cards__elements {
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 0;
+}
+
+.cards__button-more {
+    margin: 33px auto 0;
+    background-color: initial;
+    border: 1px solid #424242;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.25;
+    transition: opacity .2s;
+    height: 36px;
+    width: 320px;
+}

@@ -3,12 +3,12 @@ import './FilterCheckbox.css';
 const FilterCheckbox = () => {
 
     return (
-        <div class="filter__box">
-            <label class="filter__switch">
-                <input type="checkbox" class="filter__checkbox" id="short-movies"/>
-                <span class="filter__slider"></span>
+        <div className="filter__box">
+            <label className="filter__switch">
+                <input type="checkbox" className="filter__checkbox" id="short-movies"/>
+                <span className="filter__slider"></span>
             </label>
-            <label for="short-movies" class="filter__name">Короткометражки</label>
+            <label htmlFor="short-movies" className="filter__name">Короткометражки</label>
         </div>
 
     );

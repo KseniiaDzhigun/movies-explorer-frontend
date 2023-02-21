@@ -2,6 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import { initialCards } from '../../utils/Constants';
 // import SavedMovies from '../SavedMovies/SavedMovies';
 // import Profile from '../Profile/Profile';
 // import Login from '../Login/Login';
@@ -15,7 +16,7 @@ const App = () => {
 
         <Route path="/" element={<Main loggedIn="" />} />
 
-        <Route path="/movies" element={<Movies loggedIn="loggedIn" />} />
+        <Route path="/movies" element={<Movies loggedIn="loggedIn" movies={initialCards}/>} />
 {/* 
         <Route path="/saved-movies" element={<SavedMovies />} />
 
