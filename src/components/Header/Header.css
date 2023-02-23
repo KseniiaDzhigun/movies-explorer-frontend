@@ -33,8 +33,21 @@
 }
 
 @media screen and (max-width: 908px) {
+    .header_loggedin{
+        display: flex;
+    }
     .header__logo {
         margin: 0 0 0 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header_loggedin{
+        justify-content: space-between;
+    }
+
+    .header__logo {
+        z-index: 3;
     }
 }
 

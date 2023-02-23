@@ -64,3 +64,16 @@
     -ms-transform: translateX(16px);
     transform: translateX(16px);
 }
+
+@media screen and (max-width: 908px) {
+    .filter__box {
+        margin: 0 20px;
+    }
+}
+
+@media screen and (max-width: 532px) {
+    .filter__name {
+        font-size: 11px;
+        line-height: 1.64;
+    }
+}

@@ -61,7 +61,7 @@
     min-height: 32px;
     display: flex;
     justify-content: space-between;
-    gap: 30px;
+    gap: 35px;
     align-items: flex-start;
 }
 
@@ -85,4 +85,31 @@
     border-radius: 3px;
     padding: 4px 0px;
     text-align: center;
+}
+
+@media screen and (max-width: 908px) {
+    .movie__element {
+        max-width: 339px;
+        margin: 0;
+    }
+
+    .movie__caption {
+        margin: 27px 0 0;
+    }
+
+    .movie__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media screen and (max-width: 532px) {
+    .movie__element {
+        max-width: 300px;
+    }
+
+    .movie__caption {
+        margin: 16px 0 0;
+    }
 }

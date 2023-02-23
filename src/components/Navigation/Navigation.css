@@ -1,4 +1,16 @@
-.nav {
+.nav__movies {
+    grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    margin: 0 70px 0 0;
+}
+
+.nav__side-menu {
+    display: none;
+}
+
+.nav__main {
     grid-area: nav;
     display: flex;
     justify-content: space-between;
@@ -45,6 +57,10 @@
     line-height: 1.4;
 }
 
+.nav__list-item:first-child {
+    display: none;
+}
+
 .nav__link_account {
     flex-wrap: wrap;
     align-content: center;
@@ -56,6 +72,10 @@
     border-radius: 50px;
     gap: 7px;
     padding: 0 10px;
+    width: 100px;
+    height: 32px;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .nav__link_main {
@@ -72,13 +92,102 @@
 }
 
 @media screen and (max-width: 908px) {
-    .nav {
+    .nav__main {
         margin: 0 30px 0 0;
     }
 }
 
+@media screen and (max-width: 768px) {
+    .nav__movies {
+        width: 520px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #202020;
+        overflow: hidden;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        max-height: 0;
+        transition: max-height .5s ease-out;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        z-index: 2;
+    }
+
+    .nav__list-item:first-child {
+        display: flex;
+    }
+
+    .nav__links_movie {
+        flex-direction: column;
+        margin: 159px 90px 621px;
+    }
+
+    /* Menu Icon */
+
+    .nav__hamb-menu {
+        cursor: pointer;
+        float: right;
+        margin: 0 38px 0 0;
+        z-index: 3;
+    }
+
+
+    .nav__hamb-line {
+        background: white;
+        display: block;
+        height: 3px;
+        position: relative;
+        width: 28px;
+
+    }
+
+    .nav__hamb-line::before,
+    .nav__hamb-line::after {
+        background: white;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        transition: all .2s ease-out;
+        width: 100%;
+    }
+
+    .nav__hamb-line::before {
+        top: 10px;
+    }
+
+    .nav__hamb-line::after {
+        top: -10px;
+    }
+
+    /* Toggle menu icon */
+
+    .nav__side-menu:checked~.nav__movies {
+        max-height: 100%;
+    }
+
+    .nav__side-menu:checked~.nav__hamb-menu .nav__hamb-line {
+        background: transparent;
+    }
+
+    .nav__side-menu:checked~.nav__hamb-menu .nav__hamb-line::before {
+        transform: rotate(-45deg);
+        top: 0;
+
+    }
+
+    .nav__side-menu:checked~.nav__hamb-menu .nav__hamb-line::after {
+        transform: rotate(45deg);
+        top: 0;
+    }
+}
+
 @media screen and (max-width: 532px) {
-    .nav {
+    .nav__main {
         margin: 0 14px 0 0;
     }
 
