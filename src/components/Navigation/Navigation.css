@@ -21,10 +21,10 @@
 .nav__links {
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
     margin: 0;
     padding: 0;
     list-style-type: none;
+    align-items: center;
 }
 
 .nav__links_movie {
@@ -76,6 +76,7 @@
     height: 32px;
     justify-content: center;
     box-sizing: border-box;
+    margin: 0 0 0 348px;
 }
 
 .nav__link_main {
@@ -91,28 +92,32 @@
     padding: 9px 20px;
 }
 
-@media screen and (max-width: 908px) {
-    .nav__main {
-        margin: 0 30px 0 0;
+@media screen and (max-width: 1160px) {
+    .nav__link_account {
+        margin: 0 0 0 230px;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 908px) {
+    .nav__main {
+        margin: 0 30px 0 0;
+    } 
+
     .nav__movies {
-        width: 520px;
+        width: 100%;
         height: 100%;
         position: fixed;
         top: 0;
         right: 0;
-        background-color: #202020;
+        background-color: rgba(0, 0, 0, .3);
         overflow: hidden;
         display: flex;
         margin: 0;
         padding: 0;
         max-height: 0;
-        transition: max-height .5s ease-out;
+        transition: max-height .1s ease-out;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-end;
         justify-content: flex-start;
         z-index: 2;
     }
@@ -121,9 +126,30 @@
         display: flex;
     }
 
+    .nav__link_active {
+        padding: 0 0 4px 0;
+        border-bottom: 2px solid #FFFFFF;
+    }
+
     .nav__links_movie {
         flex-direction: column;
-        margin: 159px 90px 621px;
+        align-items: center;
+        width: 520px;
+        height: 100%;
+        padding: 159px 0;
+        margin: 0;
+        background-color: #202020;
+        gap: 28px;
+    }
+
+    .nav__link_movie {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 1.22;
+    }
+
+    .nav__link_account {
+        margin: 593px 0 0;
     }
 
     /* Menu Icon */
@@ -131,10 +157,10 @@
     .nav__hamb-menu {
         cursor: pointer;
         float: right;
-        margin: 0 38px 0 0;
+        margin: 2px 32px 0 0;
+        padding: 15px 5px;
         z-index: 3;
     }
-
 
     .nav__hamb-line {
         background: white;
@@ -142,7 +168,6 @@
         height: 3px;
         position: relative;
         width: 28px;
-
     }
 
     .nav__hamb-line::before,
@@ -187,6 +212,29 @@
 }
 
 @media screen and (max-width: 532px) {
+    .nav__links_movie {
+        width: 100%;
+        padding: 145px 0;
+        gap: 24px;
+    }
+
+    .nav__link_active {
+        padding: 0 0 6px 0;
+    }
+
+    .nav__link_account {
+        margin: 420px 0 0;
+    }
+
+    .nav__hamb-menu {
+        margin: 8px 19px 0 0;
+        padding: 10px 5px;
+    }
+
+    .nav__hamb-line {
+        width: 23px;
+    }
+
     .nav__main {
         margin: 0 14px 0 0;
     }
