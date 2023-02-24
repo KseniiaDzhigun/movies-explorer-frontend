@@ -61,14 +61,6 @@ const Navigation = ({ loggedIn }) => {
                                     </NavLink>
                                 </li>
                             </ul>
-                            {/* <Link to="/movies" className="nav__link nav__link_account" >
-                                <img
-                                    src={icon}
-                                    alt="Иконка аккаунта пользователя"
-                                    className="nav__icon"
-                                />
-                                Аккаунт
-                            </Link> */}
                         </nav>
                     </>
                 ) : (
