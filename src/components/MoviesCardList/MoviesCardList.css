@@ -32,6 +32,10 @@
     width: 320px;
 }
 
+.cards__button-more:hover {
+    opacity: .6;
+}
+
 @media screen and (max-width: 908px) {
     .cards {
         margin: 0 30px 99px;
