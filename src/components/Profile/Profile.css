@@ -1,0 +1,133 @@
+.profile__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 74px auto 70px;
+    min-width: 260px;
+}
+
+.profile__title {
+    margin: 0 auto 123px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.21;
+    color: #FFFFFF;
+}
+
+.profile__form {
+    min-height: 300px;
+    width: 410px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile__form-set {
+    margin: 0;
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.profile__field {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    line-height: 1.18;
+    color: #FFFFFF;
+    border-bottom: 1px solid #424242;
+    padding-bottom: 17px;
+}
+
+.profile__field:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+}
+
+.profile__label {
+    font-weight: 500;
+}
+
+.profile__input {
+    width: 100%;
+    margin: 0 0 0 20px;
+    text-align: end;
+    padding: 0;
+    background-color: initial;
+    border: 0;
+    font-family: inherit;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+.profile__submit-button {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.23;
+    color: #FFFFFF;
+    margin: 0;
+    background-color: initial;
+    border: none;
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+.profile__submit-button:hover {
+    opacity: .6;
+}
+
+.profile__exit-link {
+    margin: 15px auto 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.23;
+    color: #EE3465;
+    text-decoration: none;
+}
+
+.profile__exit-link:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__content {
+        margin: 236px auto 0;
+    }
+
+    .profile__title {
+        margin: 0 auto 96px;
+    }
+
+    .profile__form {
+        min-height: 289px;
+    }
+}
+
+@media screen and (max-width: 532px) {
+    .profile__content {
+        margin: 70px auto 40px;
+    }
+
+    .profile__title {
+        margin: 0 auto 80px;
+    }
+
+    .profile__form {
+        min-height: 457px;
+        width: 260px;
+    }
+
+    .profile__submit-button {
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    .profile__exit-link {
+        font-size: 12px;
+        line-height: 1.25;
+    }
+}
