@@ -17,7 +17,7 @@ const Promo = () => {
                         Узнать больше
                     </AnchorLink>
                 </div>
-                <div class="rotation promo__logo"></div>
+                <div className="rotation promo__logo"></div>
             </div>
         </section>
     );

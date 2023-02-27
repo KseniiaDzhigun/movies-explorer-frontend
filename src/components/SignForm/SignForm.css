@@ -1,6 +1,6 @@
 .sign {
     margin: 70px auto;
-    max-width: 396px;
+    min-width: 260px;
 }
 
 .sign__logo {
@@ -13,11 +13,12 @@
     font-size: 24px;
     line-height: 1.21;
     color: #FFFFFF;
-    margin: 35px 0;
+    margin: 36px 0;
 }
 
 .sign__form {
-    min-height: 386px;
+    width: 396px;
+    min-height: 385px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -92,11 +93,12 @@
     }
 
     .sign__title {
-        margin: 50px 0 74px;
+        margin: 50px 0 77px;
     }
 
     .sign__form {
-        min-height: 474px;
+        min-height: 472px;
+        width: 260px;
     }
 
     .sign__submit-button {

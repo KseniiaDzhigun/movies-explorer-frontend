@@ -40,7 +40,6 @@
     line-height: 1.18;
     color: #FFFFFF;
     border-bottom: 1px solid #424242;
-    padding-bottom: 17px;
 }
 
 .profile__field:last-child {
@@ -52,9 +51,14 @@
     font-weight: 500;
 }
 
-.profile__input {
+.profile__input-text {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     margin: 0 0 0 20px;
+}
+
+.profile__input {
     text-align: end;
     padding: 0;
     background-color: initial;
@@ -62,6 +66,21 @@
     font-family: inherit;
     font-weight: 400;
     color: #FFFFFF;
+}
+
+.profile__input_error {
+    color: #EE3465;
+}
+
+.profile__error {
+    min-height: 12px;
+    margin: 5px 0 0;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #EE3465;
+    opacity: 0.7;
+    text-align: end;
 }
 
 .profile__submit-button {

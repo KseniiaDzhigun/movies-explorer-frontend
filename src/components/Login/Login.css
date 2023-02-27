@@ -24,4 +24,15 @@
     margin: 10px 0 16px;
 }
 
-.sign__input-error {}
+.sign__input_error {
+    color: #EE3465;
+}
+
+.sign__error {
+    min-height: 12px;
+    margin: 5px 0 0;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #EE3465;
+}

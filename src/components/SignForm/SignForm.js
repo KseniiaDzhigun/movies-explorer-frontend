@@ -2,7 +2,7 @@ import './SignForm.css';
 import logo from '../../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 
-const SignForm = ({ title, button, children, text, link, linkText }) => {
+const SignForm = ({ title, button, children, text, link, linkText, onSubmit }) => {
 
     return (
         <main className="sign">
@@ -12,7 +12,7 @@ const SignForm = ({ title, button, children, text, link, linkText }) => {
                 className="sign__logo"
             />
             <h1 className="sign__title">{title}</h1>
-            <form className="sign__form" >
+            <form className="sign__form" onSubmit={onSubmit} noValidate>
                 <fieldset className="sign__form-set">
                     {children}
                 </fieldset>

@@ -8,9 +8,9 @@ const Navigation = ({ loggedIn }) => {
             {
                 loggedIn ? (
                     <>
-                        <input class="nav__side-menu" type="checkbox" id="side-menu" />
-                        <label class="nav__hamb-menu" for="side-menu">
-                            <span class="nav__hamb-line">
+                        <input className="nav__side-menu" type="checkbox" id="side-menu" />
+                        <label className="nav__hamb-menu" htmlFor="side-menu">
+                            <span className="nav__hamb-line">
                             </span>
                         </label>
                         <nav className="nav nav__movies" >
