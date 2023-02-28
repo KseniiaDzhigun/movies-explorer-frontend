@@ -6,11 +6,13 @@ const SignForm = ({ title, button, children, text, link, linkText, onSubmit }) =
 
     return (
         <main className="sign">
-            <img
-                src={logo}
-                alt="логотип Movies"
-                className="sign__logo"
-            />
+            <Link to="/" className="sign__logo-link" >
+                <img
+                    src={logo}
+                    alt="логотип Movies"
+                    className="sign__logo"
+                />
+            </Link>
             <h1 className="sign__title">{title}</h1>
             <form className="sign__form" onSubmit={onSubmit} noValidate>
                 <fieldset className="sign__form-set">

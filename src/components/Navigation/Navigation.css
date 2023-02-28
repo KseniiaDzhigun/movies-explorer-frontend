@@ -32,7 +32,7 @@
     margin: 0 70px 0 0;
 }
 
-.nav__links_sign {
+.nav__links_type_sign {
     gap: 30px;
 }
 
@@ -248,7 +248,7 @@
         margin: 0 14px 0 0;
     }
 
-    .nav__links_sign {
+    .nav__links_type_sign {
         gap: 14px;
     }
 
