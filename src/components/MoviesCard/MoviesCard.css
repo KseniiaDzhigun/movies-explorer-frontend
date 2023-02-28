@@ -22,7 +22,7 @@
     height: 21px;
 }
 
-.movie__button_saved {
+.movie__button_type_saved {
     background-image: url(../../images/movie-saved-icon.svg);
     background-color: #EE3465;
     background-position: 50%;
@@ -32,11 +32,11 @@
     cursor: pointer;
 }
 
-.movie__button_saved:hover {
+.movie__button_type_saved:hover {
     scale: 1.3;
 }
 
-.movie__button_save {
+.movie__button_type_save {
     display: none;
     cursor: pointer;
     font-weight: 400;
@@ -48,11 +48,11 @@
     width: 72px;
 }
 
-.movie__element:hover .movie__button_save {
+.movie__element:hover .movie__button_type_save {
     display: block;
 }
 
-.movie__button_save:hover {
+.movie__button_type_save:hover {
     scale: 1.2;
 }
 

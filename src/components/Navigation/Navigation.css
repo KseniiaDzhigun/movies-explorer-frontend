@@ -24,7 +24,7 @@
 
 /* Menu Main */
 
-.nav__main {
+.nav_type_main {
     grid-area: nav;
     display: flex;
     justify-content: space-between;
@@ -36,13 +36,13 @@
     gap: 30px;
 }
 
-.nav__link_main {
+.nav__link_type_main {
     font-weight: 500;
     font-size: 12px;
     line-height: 1.33;
 }
 
-.nav__link_signin {
+.nav__link_type_signin {
     background: #3DDC84;
     border-radius: 3px;
     color: #000000;
@@ -51,7 +51,7 @@
 
 /* Menu Movies */
 
-.nav__movies {
+.nav_type_movies {
     grid-area: nav;
     display: flex;
     justify-content: space-between;
@@ -63,12 +63,12 @@
     display: none;
 }
 
-.nav__links_movie {
+.nav__links_type_movie {
     gap: 16px;
     margin-left: 109px;
 }
 
-.nav__link_movie {
+.nav__link_type_movie {
     font-weight: 400;
     font-size: 13px;
     line-height: 1.4;
@@ -78,7 +78,7 @@
     display: none;
 }
 
-.nav__link_account {
+.nav__link_type_account {
     flex-wrap: wrap;
     align-content: center;
     display: flex;
@@ -97,19 +97,19 @@
 }
 
 @media screen and (max-width: 1160px) {
-    .nav__link_account {
+    .nav__link_type_account {
         margin: 0 0 0 230px;
     }
 }
 
 
 @media screen and (max-width: 908px) {
-    .nav__main {
+    .nav_type_main {
         margin: 0 30px 0 0;
     }
 
     /* Menu Movies in Hamburger */
-    .nav__movies {
+    .nav_type_movies {
         width: 100%;
         height: 100%;
         position: fixed;
@@ -137,7 +137,7 @@
         border-bottom: 2px solid #FFFFFF;
     }
 
-    .nav__links_movie {
+    .nav__links_type_movie {
         flex-direction: column;
         align-items: center;
         width: 520px;
@@ -148,13 +148,13 @@
         gap: 28px;
     }
 
-    .nav__link_movie {
+    .nav__link_type_movie {
         font-weight: 500;
         font-size: 18px;
         line-height: 1.22;
     }
 
-    .nav__link_account {
+    .nav__link_type_account {
         margin: 593px 0 0;
     }
 
@@ -197,7 +197,7 @@
 
     /* Toggle menu icon */
 
-    .nav__side-menu:checked~.nav__movies {
+    .nav__side-menu:checked~.nav_type_movies {
         max-height: 100%;
     }
 
@@ -220,7 +220,7 @@
 @media screen and (max-width: 532px) {
 
     /* Menu Movies */
-    .nav__links_movie {
+    .nav__links_type_movie {
         width: 100%;
         padding: 145px 0;
         gap: 24px;
@@ -230,7 +230,7 @@
         padding: 0 0 6px 0;
     }
 
-    .nav__link_account {
+    .nav__link_type_account {
         margin: 420px 0 0;
     }
 
@@ -244,7 +244,7 @@
     }
 
     /* Menu Main */
-    .nav__main {
+    .nav_type_main {
         margin: 0 14px 0 0;
     }
 
@@ -252,12 +252,12 @@
         gap: 14px;
     }
 
-    .nav__link_main {
+    .nav__link_type_main {
         font-size: 10px;
         line-height: 1.6;
     }
 
-    .nav__link_signin {
+    .nav__link_type_signin {
         padding: 7px 12px;
     }
 }

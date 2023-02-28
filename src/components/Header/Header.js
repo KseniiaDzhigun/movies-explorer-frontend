@@ -4,7 +4,7 @@ import Navigation from '../Navigation/Navigation';
 
 const Header = ({ loggedIn }) => {
     return (
-        <header className={ loggedIn ? "header header_loggedin" : "header header_main"}>
+        <header className={ loggedIn ? "header header_loggedin" : "header header_type_main"}>
             <img
                 src={logo}
                 alt="логотип Movies"

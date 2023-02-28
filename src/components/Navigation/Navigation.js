@@ -13,13 +13,13 @@ const Navigation = ({ loggedIn }) => {
                             <span className="nav__hamb-line">
                             </span>
                         </label>
-                        <nav className="nav nav__movies" >
-                            <ul className="nav__links nav__links_movie">
+                        <nav className="nav nav_type_movies" >
+                            <ul className="nav__links nav__links_type_movie">
                                 <li className="nav__list-item">
                                     <NavLink
                                         to="/"
                                         className={({ isActive }) =>
-                                            isActive ? "nav__link nav__link_active nav__link_movie" : "nav__link nav__link_movie"
+                                            isActive ? "nav__link nav__link_active nav__link_type_movie" : "nav__link nav__link_type_movie"
                                         }
                                     >
                                         Главная
@@ -29,7 +29,7 @@ const Navigation = ({ loggedIn }) => {
                                     <NavLink
                                         to="/movies"
                                         className={({ isActive }) =>
-                                            isActive ? "nav__link nav__link_active nav__link_movie" : "nav__link nav__link_movie"
+                                            isActive ? "nav__link nav__link_active nav__link_type_movie" : "nav__link nav__link_type_movie"
                                         }
                                     >
                                         Фильмы
@@ -39,7 +39,7 @@ const Navigation = ({ loggedIn }) => {
                                     <NavLink
                                         to="/saved-movies"
                                         className={({ isActive }) =>
-                                            isActive ? "nav__link nav__link_active nav__link_movie" : "nav__link nav__link_movie"
+                                            isActive ? "nav__link nav__link_active nav__link_type_movie" : "nav__link nav__link_type_movie"
                                         }
                                     >
                                         Сохранённые фильмы
@@ -49,7 +49,7 @@ const Navigation = ({ loggedIn }) => {
                                     <NavLink
                                         to="/profile"
                                         className={({ isActive }) =>
-                                            isActive ? "nav__link nav__link_active nav__link_account" : "nav__link nav__link_account"
+                                            isActive ? "nav__link nav__link_active nav__link_type_account" : "nav__link nav__link_type_account"
                                         }
                                     >
                                         <img
@@ -64,13 +64,13 @@ const Navigation = ({ loggedIn }) => {
                         </nav>
                     </>
                 ) : (
-                    <nav className="nav nav__main">
-                        <ul className="nav__links nav__links_sign">
+                    <nav className="nav nav_type_main">
+                        <ul className="nav__links nav__links_type_sign">
                             <li>
-                                <Link to="/signup" className="nav__link nav__link_main" >Регистрация</Link>
+                                <Link to="/signup" className="nav__link nav__link_type_main" >Регистрация</Link>
                             </li>
                             <li>
-                                <Link to="/signin" className="nav__link nav__link_main nav__link_signin" >Войти</Link>
+                                <Link to="/signin" className="nav__link nav__link_type_main nav__link_type_signin" >Войти</Link>
                             </li>
                         </ul>
                     </nav>

@@ -6,9 +6,9 @@ const MoviesCard = ({ card }) => {
         <li className="movie__element">
             <img src={card.link} alt={`Обложка к фильму ${card.name}`} className="movie__image" />
             {card.saved ? (
-                <button type="submit" className="movie__button movie__button_saved" ></button>
+                <button type="submit" className="movie__button movie__button_type_saved" ></button>
             ) : (
-                <button type="submit" className="movie__button movie__button_save" >Сохранить</button>
+                <button type="submit" className="movie__button movie__button_type_save" >Сохранить</button>
             )}
             <div className="movie__caption">
                 <h2 className="movie__title">{card.name}</h2>

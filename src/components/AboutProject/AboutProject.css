@@ -35,28 +35,28 @@
     font-size: 14px;
 }
 
-.project__text_description {
+.project__text_type_description {
     line-height: 1.43;
     margin: 0 0 110px;
 }
 
-.project__text_stage {
+.project__text_type_stage {
     padding: 9px 0;
     line-height: 1.21;
     text-align: center;
     width: 100%;
 }
 
-.project__text_first-stage {
+.project__text_type_first-stage {
     background-color: #3DDC84;
     color: #000000;
 }
 
-.project__text_second-stage {
+.project__text_type_second-stage {
     background-color: #303030;
 }
 
-.project__text_type {
+.project__text_type_phase {
     line-height: 1.21;
     color: #8B8B8B;
     padding-top: 14px;
@@ -86,7 +86,7 @@
         margin: 70px 0 22px;
     }
 
-    .project__text_description {
+    .project__text_type_description {
         font-size: 12px;
         line-height: 1.5;
         margin: 0 0 93px;
@@ -126,12 +126,12 @@
         font-size: 11px;
     }
     
-    .project__text_description {
+    .project__text_type_description {
         line-height: 1.45;
         margin: 0;
     }
 
-    .project__text_stage {
+    .project__text_type_stage {
         line-height: 1.18;
     }
 }

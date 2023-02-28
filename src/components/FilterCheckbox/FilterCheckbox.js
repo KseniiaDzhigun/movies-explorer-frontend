@@ -10,7 +10,6 @@ const FilterCheckbox = () => {
             </label>
             <label htmlFor="short-movies" className="filter__name">Короткометражки</label>
         </div>
-
     );
 }
 

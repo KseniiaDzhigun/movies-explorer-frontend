@@ -12,7 +12,7 @@ const AboutProject = () => {
                     <h3 className="project__subtitle">
                         Дипломный проект включал 5 этапов
                     </h3>
-                    <p className="project__text project__text_description">
+                    <p className="project__text project__text_type_description">
                         Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.
                     </p>
                 </li>
@@ -20,27 +20,25 @@ const AboutProject = () => {
                     <h3 className="project__subtitle">
                         На выполнение диплома ушло 5 недель
                     </h3>
-                    <p className="project__text project__text_description">
+                    <p className="project__text project__text_type_description">
                         У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.
                     </p>
                 </li>
             </ul>
             <ul className="project__scale">
-                <li className="project__text project__text_stage project__text_first-stage">
+                <li className="project__text project__text_type_stage project__text_type_first-stage">
                     1 неделя
                 </li>
-                <li className="project__text project__text_stage project__text_second-stage">
+                <li className="project__text project__text_type_stage project__text_type_second-stage">
                     4 недели
                 </li>
-                <li className="project__text project__text_type">
+                <li className="project__text project__text_type_phase">
                     Back-end
                 </li>
-                <li className="project__text project__text_type">
+                <li className="project__text project__text_type_phase">
                     Front-end
                 </li>
             </ul>
-
-
         </section>
     );
 }

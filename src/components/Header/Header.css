@@ -12,7 +12,7 @@
     grid-template-areas: "logo nav nav";
 }
 
-.header_main {
+.header_type_main {
     background-color: #073042;
     display: flex;
     justify-content: space-between; 

@@ -35,7 +35,7 @@
     letter-spacing: -0.04em;
 }
 
-.techs__text_description {
+.techs__text_type_description {
     max-width: 460px;
     line-height: 1.43;
 }
@@ -50,7 +50,7 @@
     gap: 10px;
 }
 
-.techs__text_item {
+.techs__text_type_item {
     margin: 0;
     line-height: 1.21;
     background-color: #303030;
@@ -76,7 +76,7 @@
         font-size: 12px;
     }
 
-    .techs__text_description {
+    .techs__text_type_description {
         line-height: 1.5;
     }
 
@@ -85,7 +85,7 @@
         padding: 0 50px;
     }
 
-    .techs__text_item {
+    .techs__text_type_item {
         line-height: 1.25;
         width: 84px;
         padding: 21px 0px;
@@ -109,7 +109,7 @@
         line-height: 1.2;
     }
 
-    .techs__text_description {
+    .techs__text_type_description {
         font-size: 11px;
         margin: 0 33px;
     }
