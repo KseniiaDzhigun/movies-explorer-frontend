@@ -1,7 +1,7 @@
 .header {
     width: 1280px;
     margin: 0 auto;
-    padding: 18px 0;
+    padding: 16px 0;
     min-height: 38px;
     flex-shrink: 0;
 }
@@ -33,9 +33,9 @@
     height: 38px;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 1296px) {
     .header {
-        width: 100vw;
+        width: 100%;
     }
     .header_loggedin{
         display: flex;

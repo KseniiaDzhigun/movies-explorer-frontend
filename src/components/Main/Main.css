@@ -5,8 +5,8 @@
     width: 1280px;
 }
 
-@media screen and (max-width: 1279px) {
+@media screen and (max-width: 1296px) {
     .main__content {
-        width: 100vw;
+        width: 100%;
     }
 }

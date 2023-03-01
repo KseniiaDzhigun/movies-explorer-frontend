@@ -10,7 +10,7 @@
 .movie__image {
     object-fit: cover;
     object-position: center;
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 .movie__button {
