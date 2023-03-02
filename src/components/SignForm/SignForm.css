@@ -1,0 +1,122 @@
+.sign {
+    margin: 70px auto;
+    min-width: 260px;
+}
+
+.sign__logo-link {
+    display: flex;
+    width: 38px;
+    height: 38px;
+    transition: scale .2s;
+}
+
+.sign__logo-link:hover {
+    scale: 1.15;
+}
+
+.sign__title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.21;
+    color: #FFFFFF;
+    margin: 36px 0;
+}
+
+.sign__form {
+    width: 396px;
+    min-height: 385px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sign__form-set {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.sign__submit-button {
+    margin: 0;
+    background-color: #4285F4;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.21;
+    transition: opacity .2s;
+    height: 45px;
+    width: 100%;
+}
+
+.sign__submit-button:hover {
+    opacity: .6;
+}
+
+.sign__login {
+    margin: 17px 0 0;
+    align-items: baseline;
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+}
+
+.sign__login-text {
+    margin: 0;
+    text-align: center;
+    color: #8B8B8B;
+}
+
+.sign__login-link {
+    cursor: pointer;
+    padding-left: 7px;
+    text-decoration: none;
+    transition: opacity .2s;
+    color: #4285F4;
+}
+
+.sign__login-link:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 768px) {
+    .sign {
+        margin: 232px auto 30px;
+    }
+}
+
+@media screen and (max-width: 532px) {
+    .sign {
+        margin: 56px auto 30px;
+        max-width: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sign__title {
+        margin: 50px 0 77px;
+    }
+
+    .sign__form {
+        min-height: 472px;
+        width: 260px;
+    }
+
+    .sign__submit-button {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    .sign__login {
+        margin: 14px 0 0;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+}
+

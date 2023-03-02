@@ -1,0 +1,13 @@
+.movies__content {
+    flex: 1;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 1280px;
+}
+
+@media screen and (max-width: 1296px) {
+    .movies__content {
+        width: 100%;
+    }
+}

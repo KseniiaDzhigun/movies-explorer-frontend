@@ -1,0 +1,137 @@
+.project {
+    margin: 0 70px;
+    padding: 110px 0;
+    color: #FFFFFF;
+}
+
+.project__title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.23;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 22px;
+    letter-spacing: -0.04em;
+}
+
+.project__table {
+    display: flex;
+    gap: 56px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.project__subtitle {
+    margin: 70px 0 26px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+}
+
+.project__text {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.project__text_type_description {
+    line-height: 1.43;
+    margin: 0 0 110px;
+}
+
+.project__text_type_stage {
+    padding: 9px 0;
+    line-height: 1.21;
+    text-align: center;
+    width: 100%;
+}
+
+.project__text_type_first-stage {
+    background-color: #3DDC84;
+    color: #000000;
+}
+
+.project__text_type_second-stage {
+    background-color: #303030;
+}
+
+.project__text_type_phase {
+    line-height: 1.21;
+    color: #8B8B8B;
+    padding-top: 14px;
+}
+
+.project__scale {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+}
+
+@media screen and (max-width: 908px) {
+    .project {
+        margin: 0 50px;
+        padding: 91px 0 88px;
+    }
+
+    .project__table {
+        gap: 37px;
+    }
+
+    .project__subtitle {
+        margin: 70px 0 22px;
+    }
+
+    .project__text_type_description {
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 0 0 93px;
+    }
+    
+}
+
+@media screen and (max-width: 571px) {
+    .project__subtitle {
+        font-size: 18px;
+        line-height: 1.22;
+    }
+}
+
+@media screen and (max-width: 532px) {
+    .project {
+        margin: 0 18px;
+        padding: 70px 0 67px;
+    }
+    
+    .project__title {
+        font-size: 18px;
+        padding-bottom: 28px;
+    }
+
+    .project__table {
+        flex-direction: column;
+        gap: 56px;
+        margin: 60px 0;
+    }
+
+    .project__subtitle {
+        margin: 0 0 16px;
+    }
+    
+    .project__text {
+        font-size: 11px;
+    }
+    
+    .project__text_type_description {
+        line-height: 1.45;
+        margin: 0;
+    }
+
+    .project__text_type_stage {
+        line-height: 1.18;
+    }
+}
