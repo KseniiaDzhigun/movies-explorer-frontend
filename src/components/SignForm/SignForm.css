@@ -55,6 +55,11 @@
     opacity: .6;
 }
 
+.sign__submit-button_disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
 .sign__login {
     margin: 17px 0 0;
     align-items: baseline;

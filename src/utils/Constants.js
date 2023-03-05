@@ -88,37 +88,18 @@ export const initialCards = [
     // },
 ];
 
-export const inputOptions = {
-    name: {
-        required: "Обязательное поле",
-        minLength: {
-            value: 2,
-            message: "Имя должно состоять из минимум двух символов"
-        },
-    },
-    email: {
-        required: "Обязательное поле",
-        minLength: {
-            value: 3,
-            message: "Email должен содержать минимум 3 символа"
-        },
-        pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Некорректный адрес электронной почты"
-        },
-    },
-    password: {
-        required: "Обязательное поле",
-        minLength: {
-            value: 8,
-            message: "Пароль должен содержать минимум 8 символов"
-        },
-    },
-    film: {
-        required: "Нужно ввести ключевое слово",
-        pattern: {
-            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/,
-            message: "Используйте только символы кириллицы"
-        },
-    },
-};
+const MAIN_ROUTE = "/";
+const MOVIES_ROUTE = "/movies";
+const SAVED_MOVIES_ROUTE = "/saved-movies";
+const PROFILE_ROUTE = "/profile";
+const REGISTER_ROUTE = "/signup";
+const LOGIN_ROUTE = "/signin";
+
+export {
+    MAIN_ROUTE,
+    MOVIES_ROUTE,
+    SAVED_MOVIES_ROUTE,
+    PROFILE_ROUTE,
+    REGISTER_ROUTE,
+    LOGIN_ROUTE,
+} 

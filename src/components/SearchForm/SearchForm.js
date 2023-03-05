@@ -4,7 +4,7 @@ import icon from '../../images/search-icon-grey.svg';
 import { useForm } from 'react-hook-form';
 import border from '../../images/search-vertical-border.svg';
 import { useEffect } from 'react';
-import { inputOptions } from '../../utils/Constants'
+import { inputOptions } from '../../utils/Helpers'
 
 const SearchForm = ({ film }) => {
 

@@ -2,7 +2,7 @@ import './Login.css';
 import { useState } from 'react';
 import SignForm from '../SignForm/SignForm';
 import { useForm } from 'react-hook-form';
-import { inputOptions } from '../../utils/Constants'
+import { inputOptions } from '../../utils/Helpers'
 
 const Login = () => {
 

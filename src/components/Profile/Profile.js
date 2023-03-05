@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { inputOptions } from '../../utils/Constants'
+import { inputOptions } from '../../utils/Helpers'
 
 const Profile = ({ loggedIn }) => {
 
