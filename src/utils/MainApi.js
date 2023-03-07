@@ -1,19 +1,12 @@
-export const BASE_URL = 'https://api.dzhigun.movies.nomoredomainsclub.ru';
+// export const BASE_URL = 'https://api.dzhigun.movies.nomoredomainsclub.ru';
+export const BASE_URL = 'http://localhost:3001';
 
 export const handleResponse = (response) => {
     if (response.ok) {
         return response.json();
     }
-    throw new Error(response.status);
+    return Promise.reject(response);
 }
-
-// export const handleResponse = (response) => {
-//     if (response.ok) {
-//         return response.json();
-//     }
-//     // если ошибка, отклоняем промис
-//     return Promise.reject(response);
-// }
 
 // User
 
@@ -22,7 +15,7 @@ export const getCurrentUserInfo = async () => {
         credentials: 'include',
         method: 'GET',
     });
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const updateUserInfo = async (data) => {
@@ -35,7 +28,7 @@ export const updateUserInfo = async (data) => {
         body: JSON.stringify(data)
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 // Movies
@@ -46,7 +39,7 @@ export const getSavedMovies = async () => {
         method: 'GET',
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const addNewMovie = async (data) => {
@@ -59,7 +52,7 @@ export const addNewMovie = async (data) => {
         body: JSON.stringify(data)
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const deleteMovie = async (id) => {
@@ -68,64 +61,33 @@ export const deleteMovie = async (id) => {
         method: 'DELETE',
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 // Authentication
 
-// export const register = async ({ name, email, password }) => {
-//     const response = await fetch(`${BASE_URL}/signup`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ name, email, password })
-//     });
-//     // handleResponse(response);
-//     if (response.ok) {
-//         let json = await response.json(); // (3)
-//     return json;
-//     }
-//     throw new Error(response.status);
-// };
-
 export const register = async ({ name, email, password }) => {
-    try {
-        const response = await fetch(`${BASE_URL}/signup`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, email, password })
-        });
-        if (response.ok) {
-            let json = response.json(); // (3)
-            return json;
-        }
-        throw new Error(response.status);
-    } catch (err) {
-        return err; // TypeError: failed to fetch
-    }
-
-    // handleResponse(response);
-    // if (response.ok) {
-    //     let json = await response.json(); // (3)
-    //     return json;
-    // }
-    // throw new Error(response.status);
-};
+    const response = await fetch(`${BASE_URL}/signup`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+    });
+    return handleResponse(response);
+}
 
 export const login = async ({ email, password }) => {
     const response = await fetch(`${BASE_URL}/signin`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const signout = async () => {
@@ -134,5 +96,5 @@ export const signout = async () => {
         credentials: 'include',
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };

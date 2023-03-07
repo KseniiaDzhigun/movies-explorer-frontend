@@ -2,9 +2,9 @@ import './Register.css';
 import { useState } from 'react';
 import SignForm from '../SignForm/SignForm';
 import { useForm } from 'react-hook-form';
-import { inputOptions } from '../../utils/Helpers'
+import { inputOptions } from '../../utils/Helpers';
 
-const Register = ({ onRegister }) => {
+const Register = ({ onRegister, errorsMessage }) => {
 
     const [userData, setUserData] = useState({
         name: '',
@@ -21,7 +21,6 @@ const Register = ({ onRegister }) => {
     }
 
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({mode: 'onChange'});
-    // const onSubmit = data => console.log(data);
 
     const onSubmit = () => {
         let { name, email, password } = userData;
@@ -37,6 +36,7 @@ const Register = ({ onRegister }) => {
             linkText="Войти"
             onSubmit={handleSubmit(onSubmit)}
             disabled={!isDirty || !isValid} 
+            errorsMessage={errorsMessage}
         >
             <label htmlFor="name-input" className="sign__label">Имя</label>
             <input

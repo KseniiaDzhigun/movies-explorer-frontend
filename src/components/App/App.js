@@ -1,7 +1,8 @@
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Main from '../Main/Main';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Movies from '../Movies/Movies';
 import { initialCards } from '../../utils/Constants';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -22,51 +23,65 @@ import {
 const App = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [errorsMessage, setErrorsMessage] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
   const handleRegister = async (data) => {
     try {
       const response = await Api.register(data);
-return response;
-      // setLoggedIn(true);
-      // navigate(MOVIES_ROUTE);
+      setLoggedIn(true);
+      navigate(MOVIES_ROUTE);
+      return response;
     } catch (err) {
-      console.log(err);
+      const error = await err.json();
+      setErrorsMessage(error.message);
     }
   }
 
-  // const handleRegister = async (data) => {
-  //   try {
-  //      const res = await Api.register(data);
-  //      console.log(res);
-  //     setLoggedIn(true);
-  //     navigate(MOVIES_ROUTE);
-  //   } catch (err) {
-  //     console.log(`Ошибка: ${err}`);
-  //   }
-  // }
+  const handleLogin = async (data) => {
+    try {
+      const initialUserInfo = await Api.login(data);
+      setCurrentUser(initialUserInfo);
+      setLoggedIn(true);
+      navigate(MOVIES_ROUTE);
+      // return initialUserInfo;
+    } catch (err) {
+      const error = await err.json();
+      setErrorsMessage(error.message);
+    }
+  }
+
+  //При изменении location убираем ошибку над кнопкой зарегестрироваться
+  useEffect(() => {
+    setErrorsMessage('')
+  }, [location])
 
   return (
-    <div className="page">
-      <Routes>
+    //Используем данные из currentUser для всех элементов с помощью провайдера контекста
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Routes>
 
-        <Route path={MAIN_ROUTE} element={<Main loggedIn={loggedIn} />} />
+          <Route path={MAIN_ROUTE} element={<Main loggedIn={loggedIn} />} />
 
-        <Route path={MOVIES_ROUTE} element={<Movies loggedIn={loggedIn} movies={initialCards} loading="" />} />
+          <Route path={MOVIES_ROUTE} element={<Movies loggedIn={loggedIn} movies={initialCards} loading="" />} />
 
-        <Route path={SAVED_MOVIES_ROUTE} element={<SavedMovies loggedIn={loggedIn} movies={initialCards} />} />
+          <Route path={SAVED_MOVIES_ROUTE} element={<SavedMovies loggedIn={loggedIn} movies={initialCards} />} />
 
-        <Route path={PROFILE_ROUTE} element={<Profile loggedIn={loggedIn} />} />
+          <Route path={PROFILE_ROUTE} element={<Profile loggedIn={loggedIn} />} />
 
-        <Route path={LOGIN_ROUTE} element={<Login />} />
+          <Route path={LOGIN_ROUTE} element={<Login onLogin={handleLogin} errorsMessage={errorsMessage} />} />
 
-        <Route path={REGISTER_ROUTE} element={<Register onRegister={handleRegister} />} />
+          <Route path={REGISTER_ROUTE} element={<Register onRegister={handleRegister} errorsMessage={errorsMessage} />} />
 
-        <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound />} />
 
-      </Routes>
-    </div>
+        </Routes>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

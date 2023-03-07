@@ -3,7 +3,7 @@ import { useState } from 'react';
 import logo from '../../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 
-const SignForm = ({ title, button, children, text, link, linkText, onSubmit, disabled }) => {
+const SignForm = ({ title, button, children, text, link, linkText, onSubmit, disabled, errorsMessage }) => {
 
     return (
         <main className="sign">
@@ -19,6 +19,7 @@ const SignForm = ({ title, button, children, text, link, linkText, onSubmit, dis
                 <fieldset className="sign__form-set">
                     {children}
                 </fieldset>
+                <p className="sign__submit-error">{errorsMessage}</p>
                 <button
                     type="submit"
                     className={disabled ? "sign__submit-button sign__submit-button_disabled" : "sign__submit-button"}
