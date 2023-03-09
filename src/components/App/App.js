@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -18,7 +19,11 @@ import {
   PROFILE_ROUTE,
   REGISTER_ROUTE,
   LOGIN_ROUTE,
+  ERROR_MESSAGE,
+  SUCCESS_LOGOUT_MESSAGE,
+  UPDATE_PROFILE_MESSAGE,
 } from '../../utils/Constants';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const App = () => {
 
@@ -27,7 +32,14 @@ const App = () => {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState('');
+  const [successfulMessage, setSuccessfulMessage] = useState('');
   const [currentUser, setCurrentUser] = useState({});
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
+
+  const closePopup = () => {
+    setIsInfoTooltipOpen(false);
+  }
 
   const handleRegister = async (data) => {
     try {
@@ -54,6 +66,41 @@ const App = () => {
     }
   }
 
+  const openInfoTooltip = (successful, message) => {
+    if (successful) {
+      setIsInfoTooltipSuccessful(true);
+      setSuccessfulMessage(message);
+      setIsInfoTooltipOpen(true);
+    } else {
+      setIsInfoTooltipSuccessful(false);
+      setErrorsMessage(message);
+      setIsInfoTooltipOpen(true);
+    }
+  }
+
+  const handleUpdateUser = async (data) => {
+    try {
+      const updatedUserInfo = await Api.updateUserInfo(data);
+      setCurrentUser(updatedUserInfo);
+      openInfoTooltip(true, UPDATE_PROFILE_MESSAGE);
+    } catch (err) {
+      const error = await err.json();
+      openInfoTooltip(false, error.message);
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      const response = await Api.signout();
+      setLoggedIn(false);
+      openInfoTooltip(true, SUCCESS_LOGOUT_MESSAGE);
+      navigate(MAIN_ROUTE);
+      return response;
+    } catch (err) {
+      openInfoTooltip(false, ERROR_MESSAGE);
+    }
+  }
+
   //При изменении location убираем ошибку над кнопкой зарегестрироваться
   useEffect(() => {
     setErrorsMessage('')
@@ -71,7 +118,16 @@ const App = () => {
 
           <Route path={SAVED_MOVIES_ROUTE} element={<SavedMovies loggedIn={loggedIn} movies={initialCards} />} />
 
-          <Route path={PROFILE_ROUTE} element={<Profile loggedIn={loggedIn} />} />
+          <Route path={PROFILE_ROUTE} element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Profile
+                loggedIn={loggedIn}
+                onLogout={handleLogout}
+                onUpdate={handleUpdateUser}
+              />
+            </ProtectedRoute>
+          }
+          />
 
           <Route path={LOGIN_ROUTE} element={<Login onLogin={handleLogin} errorsMessage={errorsMessage} />} />
 
@@ -80,6 +136,14 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
 
         </Routes>
+
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closePopup}
+          isSuccessful={isInfoTooltipSuccessful}
+          errorsMessage={errorsMessage}
+          successfulMessage={successfulMessage}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

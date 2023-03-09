@@ -95,6 +95,11 @@ const PROFILE_ROUTE = "/profile";
 const REGISTER_ROUTE = "/signup";
 const LOGIN_ROUTE = "/signin";
 
+const ERROR_MESSAGE='Что-то пошло не так! Попробуйте ещё раз.';
+const SUCCESS_LOGOUT_MESSAGE='Вы успешно вышли из учетной записи!';
+const UPDATE_PROFILE_MESSAGE='Данные профиля успешно изменены';
+
+
 export {
     MAIN_ROUTE,
     MOVIES_ROUTE,
@@ -102,4 +107,7 @@ export {
     PROFILE_ROUTE,
     REGISTER_ROUTE,
     LOGIN_ROUTE,
+    ERROR_MESSAGE,
+    SUCCESS_LOGOUT_MESSAGE,
+    UPDATE_PROFILE_MESSAGE,
 } 

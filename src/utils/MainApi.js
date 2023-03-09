@@ -19,7 +19,7 @@ export const getCurrentUserInfo = async () => {
 };
 
 export const updateUserInfo = async (data) => {
-    const response = await fetch(`${BASE_URL}/me`, {
+    const response = await fetch(`${BASE_URL}/users/me`, {
         credentials: 'include',
         method: 'PATCH',
         headers: {

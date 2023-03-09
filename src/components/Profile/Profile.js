@@ -1,16 +1,19 @@
 import './Profile.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { inputOptions } from '../../utils/Helpers'
 
-const Profile = ({ loggedIn }) => {
+const Profile = ({ loggedIn, onLogout, onUpdate }) => {
+
+    const currentUser = useContext(CurrentUserContext);
 
     const [userData, setUserData] = useState({
-        name: 'Виталий',
-        email: 'pochta@yandex.ru',
+        name: currentUser.name,
+        email: currentUser.email,
     })
 
     const handleChange = (e) => {
@@ -21,14 +24,20 @@ const Profile = ({ loggedIn }) => {
         });
     }
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: 'onChange' });
+
+    const disabled = !isDirty || !isValid || (userData.name === currentUser.name && userData.email === currentUser.email);
+
+    const onSubmit = () => {
+        let { name, email } = userData;
+        onUpdate({ name, email });
+    }
 
     return (
         <>
             <Header loggedIn={loggedIn} />
             <main className="profile__content">
-                <h1 className="profile__title">Привет, Виталий!</h1>
+                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <form className="profile__form" onSubmit={handleSubmit(onSubmit)} >
                     <fieldset className="profile__form-set">
 
@@ -63,9 +72,14 @@ const Profile = ({ loggedIn }) => {
                             </div>
                         </div>
                     </fieldset>
-                    <button type="submit" className="profile__submit-button">Редактировать</button>
+                    <button
+                        type="submit"
+                        disabled={disabled}
+                        className={disabled ? "profile__submit-button profile__submit-button_disabled" : "profile__submit-button"} >
+                        Редактировать
+                    </button>
                 </form>
-                <Link to="/signin" className="profile__exit-link">Выйти из аккаунта</Link>
+                <Link to="/signin" onClick={onLogout} className="profile__exit-link">Выйти из аккаунта</Link>
             </main>
             <Footer />
         </>
