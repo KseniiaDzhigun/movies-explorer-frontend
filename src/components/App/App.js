@@ -5,13 +5,13 @@ import Main from '../Main/Main';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Movies from '../Movies/Movies';
-import { initialCards } from '../../utils/Constants';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as Api from '../../utils/MainApi';
+import * as MoviesApi from '../../utils/MoviesApi';
 import {
   MAIN_ROUTE,
   MOVIES_ROUTE,
@@ -36,10 +36,29 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
+  const [cards, setCards] = useState([]);
 
   const closePopup = () => {
     setIsInfoTooltipOpen(false);
   }
+
+  const authCheck = async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      const currentUserInfo = await Api.getCurrentUserInfo(userId);
+      setCurrentUser(currentUserInfo);
+      setLoggedIn(true);
+      navigate(MOVIES_ROUTE);
+    } catch (err) {
+      const error = await err.json();
+      console.log(`Переданный userId некорректен : ${error}`)
+    }
+  }
+
+  //Проверяем валидность токена при запуске/обновлении страницы только один раз
+  useEffect(() => {
+    authCheck()
+  }, []);
 
   const handleRegister = async (data) => {
     try {
@@ -56,6 +75,8 @@ const App = () => {
   const handleLogin = async (data) => {
     try {
       const initialUserInfo = await Api.login(data);
+      //Сохраняем в localStorage id пользователя, так как токен приходит в куках
+      localStorage.setItem('userId', initialUserInfo._id);
       setCurrentUser(initialUserInfo);
       setLoggedIn(true);
       navigate(MOVIES_ROUTE);
@@ -101,10 +122,26 @@ const App = () => {
     }
   }
 
-  //При изменении location убираем ошибку над кнопкой зарегестрироваться
+  //При изменении location убираем сообщение об ошибке
   useEffect(() => {
     setErrorsMessage('')
   }, [location])
+
+  const getInitialCards = async () => {
+    try {
+      const initialFilms = await MoviesApi.getInitialFilms();
+      setCards(initialFilms);
+      console.log(initialFilms);
+    } catch (err) {
+      const error = await err.json();
+      console.log(`Ошибка : ${error}`);
+    }
+  }
+
+    //Запрос за фильмами при запуске/обновлении страницы только один раз
+  useEffect(() => {
+    getInitialCards();
+  }, [])
 
   return (
     //Используем данные из currentUser для всех элементов с помощью провайдера контекста
@@ -114,9 +151,26 @@ const App = () => {
 
           <Route path={MAIN_ROUTE} element={<Main loggedIn={loggedIn} />} />
 
-          <Route path={MOVIES_ROUTE} element={<Movies loggedIn={loggedIn} movies={initialCards} loading="" />} />
+          <Route path={MOVIES_ROUTE} element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Movies
+                loggedIn={loggedIn}
+                movies={cards}
+                loading=""
+              />
+            </ProtectedRoute>
+          }
+          />
 
-          <Route path={SAVED_MOVIES_ROUTE} element={<SavedMovies loggedIn={loggedIn} movies={initialCards} />} />
+          <Route path={SAVED_MOVIES_ROUTE} element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <SavedMovies
+                loggedIn={loggedIn}
+                movies={cards}
+              />
+            </ProtectedRoute>
+          }
+          />
 
           <Route path={PROFILE_ROUTE} element={
             <ProtectedRoute loggedIn={loggedIn}>

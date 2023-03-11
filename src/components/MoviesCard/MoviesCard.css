@@ -11,6 +11,8 @@
     object-fit: cover;
     object-position: center;
     border-radius: 8px;
+    width: 360px;
+    height: 201px;
 }
 
 .movie__button {
@@ -93,6 +95,11 @@
         margin: 0;
     }
 
+    .movie__image {
+        width: 339px;
+        height: 190px;
+    }
+
     .movie__caption {
         margin: 27px 0 0;
     }
@@ -107,6 +114,11 @@
 @media screen and (max-width: 532px) {
     .movie__element {
         max-width: 300px;
+    }
+
+    .movie__image {
+        width: 300px;
+        height: 168px;
     }
 
     .movie__caption {

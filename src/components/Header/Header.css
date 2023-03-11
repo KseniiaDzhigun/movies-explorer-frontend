@@ -6,14 +6,17 @@
     flex-shrink: 0;
 }
 
-.header_loggedin {
+.header_type_movies {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas: "logo nav nav";
 }
 
-.header_type_main {
+.header_type_main-location {
     background-color: #073042;
+}
+
+.header_type_main {
     display: flex;
     justify-content: space-between; 
 }
@@ -37,7 +40,7 @@
     .header {
         width: 100%;
     }
-    .header_loggedin{
+    .header_type_movies{
         display: flex;
         justify-content: space-between;
     }
@@ -50,7 +53,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .header_loggedin{
+    .header_type_movies{
         justify-content: space-between;
     }
 

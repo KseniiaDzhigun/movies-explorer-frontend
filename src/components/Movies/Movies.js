@@ -9,14 +9,14 @@ const Movies = ({ loggedIn, movies, loading }) => {
 
     return (
         <>
-        <Header loggedIn={loggedIn}/>
-        <main className="movies__content">
-            <SearchForm />
-            <Preloader loading={loading} />
-            <MoviesCardList movies={movies}/>
-        </main>
-        <Footer />
-    </>
+            <Header loggedIn={loggedIn} />
+            <main className="movies__content">
+                <SearchForm />
+                <Preloader loading={loading} />
+                <MoviesCardList movies={movies} />
+            </main>
+            <Footer />
+        </>
     );
 }
 

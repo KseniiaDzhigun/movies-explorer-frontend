@@ -11,7 +11,7 @@ export const handleResponse = (response) => {
 // User
 
 export const getCurrentUserInfo = async () => {
-    const response = await fetch(`${BASE_URL}/me`, {
+    const response = await fetch(`${BASE_URL}/users/me`, {
         credentials: 'include',
         method: 'GET',
     });
@@ -98,3 +98,4 @@ export const signout = async () => {
 
     return handleResponse(response);
 };
+
