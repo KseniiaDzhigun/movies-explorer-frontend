@@ -13,7 +13,7 @@ const MoviesCard = ({ card }) => {
             )}
             <div className="movie__caption">
                 <h2 className="movie__title">{card.nameRU}</h2>
-                <p className="movie__duration">1ч 17м</p>
+                <p className="movie__duration">{parseInt(card.duration / 60)}ч {card.duration - 60 * parseInt(card.duration / 60)}м</p>
             </div>
         </li>
     );

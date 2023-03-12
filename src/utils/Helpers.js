@@ -1,3 +1,5 @@
+
+
 export const inputOptions = {
     name: {
         required: "Обязательное поле",
@@ -20,7 +22,7 @@ export const inputOptions = {
             message: "Пароль должен содержать минимум 8 символов"
         },
     },
-    film: {
+    movie: {
         required: "Нужно ввести ключевое слово",
         pattern: {
             value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/,
@@ -28,3 +30,19 @@ export const inputOptions = {
         },
     },
 };
+
+export const filterArray = (movies, movieRequest, isChecked) => {
+    console.log(isChecked);
+
+    if (isChecked) {
+        const result = movies.filter(function checkMovies(movie) {
+            return ((movie.duration <= 40) && movie.nameRU.includes(movieRequest));
+        })
+        return result;
+    } else {
+        const result = movies.filter(function checkMovies(movie) {
+            return ((movie.duration > 40) && movie.nameRU.includes(movieRequest));
+        })
+        return result;
+    }
+}

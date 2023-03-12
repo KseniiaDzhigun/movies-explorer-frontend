@@ -6,10 +6,9 @@ import border from '../../images/search-vertical-border.svg';
 import { useEffect } from 'react';
 import { inputOptions } from '../../utils/Helpers'
 
-const SearchForm = ({ film }) => {
+const SearchForm = ({ film, onSearch, onCheck }) => {
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
-    const onSubmit = data => console.log(data);
 
     useEffect(() => {
         if (film) setValue(film);
@@ -19,6 +18,9 @@ const SearchForm = ({ film }) => {
         setValue(e.target.value);
     };
 
+    const onSubmit = (data) => {
+        onSearch(data.movieReq);
+    }
 
     return (
         <form className="search__form" onSubmit={handleSubmit(onSubmit)}>
@@ -30,13 +32,13 @@ const SearchForm = ({ film }) => {
                 />
                 <div className="search__input-text">
                 <input
-                    id="film-input"
-                    name="film"
-                    {...register("film", { ...inputOptions.film, onChange: handleChange })}
-                    className={errors.film ? "search__input search__input_error" : "search__input"}
+                    id="movieReq-input"
+                    name="movieReq"
+                    {...register("movieReq", { ...inputOptions.movie, onChange: handleChange })}
+                    className={errors.movieReq ? "search__input search__input_error" : "search__input"}
                     placeholder="Фильм"
                 />
-                <p className="search__error">{errors.film ? errors.film.message : ''}</p>
+                <p className="search__error">{errors.movieReq ? errors.movieReq.message : ''}</p>
                 </div>
                 <button type="submit" className="search__button-submit"></button>
             </fieldset>
@@ -45,7 +47,7 @@ const SearchForm = ({ film }) => {
                 alt="Разделитель"
                 className="search__border"
             />
-            <FilterCheckbox />
+            <FilterCheckbox onCheck={onCheck}/>
         </form>
     );
 }
