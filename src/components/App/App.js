@@ -22,6 +22,7 @@ import {
   ERROR_MESSAGE,
   SUCCESS_LOGOUT_MESSAGE,
   UPDATE_PROFILE_MESSAGE,
+  ERROR_SERVER_MESSAGE,
 } from '../../utils/Constants';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
@@ -36,7 +37,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(null);
 
   const closePopup = () => {
     setIsInfoTooltipOpen(false);
@@ -133,8 +134,7 @@ const App = () => {
       setCards(initialFilms);
       console.log(initialFilms);
     } catch (err) {
-      const error = await err.json();
-      console.log(`Ошибка : ${error}`);
+      setErrorsMessage(ERROR_SERVER_MESSAGE);
     }
   }
 
@@ -156,7 +156,7 @@ const App = () => {
               <Movies
                 loggedIn={loggedIn}
                 movies={cards}
-                loading=""
+                moviesErrorMessage={errorsMessage}
               />
             </ProtectedRoute>
           }

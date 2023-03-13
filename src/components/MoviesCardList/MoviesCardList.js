@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react';
 import { useWindowSize } from '../../utils/Hooks';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ movies }) => {
+const MoviesCardList = ({ movies, errorsMessage }) => {
 
     const size = useWindowSize();
 
     const [moviesNumber, setMoviesNumber] = useState(0);
     const [addedMoviesNumber, setAddedMoviesNumber] = useState(0);
+    const [moviesList, setMoviesList] = useState(movies);
 
     const getMoviesNumber = () => {
         if (size.width >= 1296) {
@@ -23,27 +24,36 @@ const MoviesCardList = ({ movies }) => {
         }
     }
 
+    // При изменении размера меняем количество видимых карточек
+    // При каждом новом поиске количество карточек возвращается к исходному значению
     useEffect(() => {
         getMoviesNumber();
-    }, [size]);
+    }, [size, movies]);
 
-    let moviesList = movies.slice(0, moviesNumber);
+    // При изменении количества и каждом новом поиске обновляем список фильмов
+    useEffect(() => {
+        setMoviesList(movies.slice(0, moviesNumber));
+    }, [movies, moviesNumber]);
 
-    // const [moviesList, setMoviesList] = useState(visibleMoviesList);
 
-    // const handleAddMovies = () => {
-    //     let visibleMoviesList = movies.slice(0, (moviesNumber + addedMoviesNumber));
-    //     setMoviesList(visibleMoviesList);
-    // }
+    const handleAddMovies = () => {
+        setMoviesNumber(moviesNumber + addedMoviesNumber);
+    }
 
-    // onClick={ handleAddMovies }
 
     return (
         <section className="cards">
-            <ul className="cards__elements">
-                {moviesList.map((card) => (<MoviesCard card={card} key={card.id} />))}
-            </ul>
-            <button type="button" className="cards__button-more">Ещё</button>
+            {
+                errorsMessage ? (
+                    <p className="cards__error">{errorsMessage}</p>
+                ) : (
+                    <ul className="cards__elements">
+                        {moviesList.map((card) => (<MoviesCard card={card} key={card.id}
+                        />))}
+                    </ul>
+                )
+            }
+            <button type="button" className={(movies.length <= moviesNumber) ? "cards__button-more cards__button-more_hidden" : "cards__button-more"} onClick={handleAddMovies}>Ещё</button>
         </section>
     );
 }
