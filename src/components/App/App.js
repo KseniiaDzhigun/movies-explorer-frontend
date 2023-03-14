@@ -12,6 +12,7 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as Api from '../../utils/MainApi';
 import * as MoviesApi from '../../utils/MoviesApi';
+import { filterArray, getNewCard } from '../../utils/Helpers';
 import {
   MAIN_ROUTE,
   MOVIES_ROUTE,
@@ -23,6 +24,7 @@ import {
   SUCCESS_LOGOUT_MESSAGE,
   UPDATE_PROFILE_MESSAGE,
   ERROR_SERVER_MESSAGE,
+  NOT_FOUND_MESSAGE
 } from '../../utils/Constants';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
@@ -115,6 +117,9 @@ const App = () => {
     try {
       const response = await Api.signout();
       setLoggedIn(false);
+      setCards([]);
+      setFoundMovies([]);
+      setSavedMovies([]);
       openInfoTooltip(true, SUCCESS_LOGOUT_MESSAGE);
       navigate(MAIN_ROUTE);
       return response;
@@ -130,18 +135,59 @@ const App = () => {
 
   const getInitialCards = async () => {
     try {
-      const initialFilms = await MoviesApi.getInitialFilms();
-      setCards(initialFilms);
-      console.log(initialFilms);
+      const initialMovies = await MoviesApi.getInitialFilms();
+      const initialMoviesList = initialMovies.map(movie => getNewCard(movie));
+      setCards(initialMoviesList);
+      console.log(initialMoviesList);
+    } catch (err) {
+      const error = await err.json();
+      console.log(error.message);
+    }
+  }
+
+  //Запрос за фильмами при запуске/обновлении страницы только один раз
+  useEffect(() => {
+    getInitialCards();
+  }, [loggedIn])
+
+  const [foundMovies, setFoundMovies] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  const handleCheck = (active) => {
+    setIsChecked(active);
+  }
+
+  const handleSearch = (movieReq) => {
+    try {
+      setLoading(true);
+      setErrorsMessage('');
+      const filteredMovies = filterArray(cards, movieReq, isChecked);
+      console.log(filteredMovies);
+      if (cards && (filteredMovies.length === 0)) {
+        setErrorsMessage(NOT_FOUND_MESSAGE);
+      }
+      localStorage.setItem('movieRequest', movieReq);
+      localStorage.setItem('checkBox', isChecked);
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+      setFoundMovies(filteredMovies);
+    } catch (err) {
+      setErrorsMessage(ERROR_SERVER_MESSAGE);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleSaveCard = async (card) => {
+    try {
+      const newCard = await Api.addNewMovie(card);
+      setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? newCard : currentCard));
+      setSavedMovies([newCard, ...savedMovies]);
     } catch (err) {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     }
   }
-
-    //Запрос за фильмами при запуске/обновлении страницы только один раз
-  useEffect(() => {
-    getInitialCards();
-  }, [])
 
   return (
     //Используем данные из currentUser для всех элементов с помощью провайдера контекста
@@ -155,8 +201,12 @@ const App = () => {
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies
                 loggedIn={loggedIn}
-                movies={cards}
+                onSearch={handleSearch}
+                onCheck={handleCheck}
+                loading={loading}
+                movies={foundMovies}
                 moviesErrorMessage={errorsMessage}
+                onCardSave={handleSaveCard}
               />
             </ProtectedRoute>
           }
@@ -166,7 +216,7 @@ const App = () => {
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
                 loggedIn={loggedIn}
-                movies={cards}
+                movies={savedMovies}
               />
             </ProtectedRoute>
           }

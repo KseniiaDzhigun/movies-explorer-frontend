@@ -3,19 +3,17 @@ import './SearchForm.css';
 import icon from '../../images/search-icon-grey.svg';
 import { useForm } from 'react-hook-form';
 import border from '../../images/search-vertical-border.svg';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { inputOptions } from '../../utils/Helpers'
 
-const SearchForm = ({ film, onSearch, onCheck }) => {
+const SearchForm = ({ onSearch, onCheck }) => {
 
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    useEffect(() => {
-        if (film) setValue(film);
-    }, [film]);
+    const [userData, setUserData] = useState(localStorage.getItem('movieRequest'))
 
     const handleChange = (e) => {
-        setValue(e.target.value);
+        setUserData(e.target.value);
     };
 
     const onSubmit = (data) => {
@@ -31,14 +29,15 @@ const SearchForm = ({ film, onSearch, onCheck }) => {
                     className="search__icon"
                 />
                 <div className="search__input-text">
-                <input
-                    id="movieReq-input"
-                    name="movieReq"
-                    {...register("movieReq", { ...inputOptions.movie, onChange: handleChange })}
-                    className={errors.movieReq ? "search__input search__input_error" : "search__input"}
-                    placeholder="Фильм"
-                />
-                <p className="search__error">{errors.movieReq ? errors.movieReq.message : ''}</p>
+                    <input
+                        value={userData}
+                        id="movieReq-input"
+                        name="movieReq"
+                        {...register("movieReq", { ...inputOptions.movie, onChange: handleChange })}
+                        className={errors.movieReq ? "search__input search__input_error" : "search__input"}
+                        placeholder="Фильм"
+                    />
+                    <p className="search__error">{errors.movieReq ? errors.movieReq.message : ''}</p>
                 </div>
                 <button type="submit" className="search__button-submit"></button>
             </fieldset>
@@ -47,7 +46,7 @@ const SearchForm = ({ film, onSearch, onCheck }) => {
                 alt="Разделитель"
                 className="search__border"
             />
-            <FilterCheckbox onCheck={onCheck}/>
+            <FilterCheckbox onCheck={onCheck} />
         </form>
     );
 }

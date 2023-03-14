@@ -43,7 +43,7 @@ export const getSavedMovies = async () => {
 };
 
 export const addNewMovie = async (data) => {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/movies`, {
         credentials: 'include',
         method: 'POST',
         headers: {

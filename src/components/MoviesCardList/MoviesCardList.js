@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useWindowSize } from '../../utils/Hooks';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ movies, errorsMessage }) => {
+const MoviesCardList = ({ movies, errorsMessage, onCardSave, isSaved }) => {
 
     const size = useWindowSize();
 
@@ -48,7 +48,7 @@ const MoviesCardList = ({ movies, errorsMessage }) => {
                     <p className="cards__error">{errorsMessage}</p>
                 ) : (
                     <ul className="cards__elements">
-                        {moviesList.map((card) => (<MoviesCard card={card} key={card.id}
+                        {moviesList.map((card) => (<MoviesCard card={card} key={card.id} onCardSave={onCardSave}
                         />))}
                     </ul>
                 )

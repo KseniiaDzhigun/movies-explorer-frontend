@@ -1,4 +1,4 @@
-
+import { MOVIES_URL } from './Constants'
 
 export const inputOptions = {
     name: {
@@ -44,5 +44,32 @@ export const filterArray = (movies, movieRequest, isChecked) => {
             return ((movie.duration > 40) && movie.nameRU.includes(movieRequest));
         })
         return result;
+    }
+}
+
+export const getNewCard = ({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    id,
+    nameRU,
+    nameEN,
+}) => {
+    return {
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: MOVIES_URL + image.url,
+        trailerLink,
+        thumbnail: MOVIES_URL + image.formats.thumbnail.url,
+        movieId: id,
+        nameRU,
+        nameEN,
     }
 }
