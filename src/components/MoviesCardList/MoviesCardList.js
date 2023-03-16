@@ -1,11 +1,13 @@
 import './MoviesCardList.css';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useWindowSize } from '../../utils/Hooks';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ movies, errorsMessage, onCardSave, isSaved }) => {
+const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardDelete }) => {
 
     const size = useWindowSize();
+    const location = useLocation().pathname;
 
     const [moviesNumber, setMoviesNumber] = useState(0);
     const [addedMoviesNumber, setAddedMoviesNumber] = useState(0);
@@ -43,18 +45,52 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, isSaved }) => {
 
     return (
         <section className="cards">
-            {
-                errorsMessage ? (
-                    <p className="cards__error">{errorsMessage}</p>
+            {location === '/movies' ?
+                (
+                    <>
+                        {
+                            errorsMessage ? (
+                                <p className="cards__error">{errorsMessage}</p>
+                            ) : (
+                                <ul className="cards__elements">
+                                    {moviesList.map((card) => (
+                                    <MoviesCard 
+                                    card={card} 
+                                    key={card.movieId} 
+                                    onCardSave={onCardSave}
+                                    onCardDelete={onCardDelete}
+                                    />))}
+                                </ul>
+                            )
+                        }
+                        <button
+                            type="button"
+                            className={(movies.length <= moviesNumber) ? "cards__button-more cards__button-more_hidden" : "cards__button-more"}
+                            onClick={handleAddMovies}>
+                            Ещё
+                        </button>
+                    </>
                 ) : (
-                    <ul className="cards__elements">
-                        {moviesList.map((card) => (<MoviesCard card={card} key={card.id} onCardSave={onCardSave}
-                        />))}
-                    </ul>
+                    <>
+                        {
+                            errorsMessage ? (
+                                <p className="cards__error" > {errorsMessage}</p>
+                            ) : (
+                                <ul className="cards__elements">
+                                    {moviesList.map((card) => (
+                                        <MoviesCard
+                                            card={card}
+                                            key={card._id}
+                                            onCardSave={onCardSave}
+                                            onCardDelete={onCardDelete}
+                                        />))}
+                                </ul>
+                            )
+                        }
+                    </>
                 )
             }
-            <button type="button" className={(movies.length <= moviesNumber) ? "cards__button-more cards__button-more_hidden" : "cards__button-more"} onClick={handleAddMovies}>Ещё</button>
-        </section>
+        </section >
     );
 }
 

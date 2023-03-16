@@ -34,7 +34,7 @@ export const updateUserInfo = async (data) => {
 // Movies
 
 export const getSavedMovies = async () => {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/movies`, {
         credentials: 'include',
         method: 'GET',
     });
@@ -56,7 +56,7 @@ export const addNewMovie = async (data) => {
 };
 
 export const deleteMovie = async (id) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch(`${BASE_URL}/movies/${id}`, {
         credentials: 'include',
         method: 'DELETE',
     });

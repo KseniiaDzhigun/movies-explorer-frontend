@@ -4,14 +4,14 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-const SavedMovies = ({ loggedIn, movies }) => {
+const SavedMovies = ({ loggedIn, movies, moviesErrorMessage }) => {
 
     return (
         <>
         <Header loggedIn={loggedIn}/>
         <main className="movies__content">
             <SearchForm />
-            <MoviesCardList movies={movies}/>
+            <MoviesCardList movies={movies} errorsMessage={moviesErrorMessage}/>
         </main>
         <Footer />
     </>

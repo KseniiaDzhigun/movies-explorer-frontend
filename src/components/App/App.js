@@ -12,7 +12,7 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as Api from '../../utils/MainApi';
 import * as MoviesApi from '../../utils/MoviesApi';
-import { filterArray, getNewCard } from '../../utils/Helpers';
+import { filterArray, addSavedToArray, adaptCardToMovies, adaptCardToSaved } from '../../utils/Helpers';
 import {
   MAIN_ROUTE,
   MOVIES_ROUTE,
@@ -136,7 +136,7 @@ const App = () => {
   const getInitialCards = async () => {
     try {
       const initialMovies = await MoviesApi.getInitialFilms();
-      const initialMoviesList = initialMovies.map(movie => getNewCard(movie));
+      const initialMoviesList = initialMovies.map(movie => adaptCardToMovies(movie));
       setCards(initialMoviesList);
       console.log(initialMoviesList);
     } catch (err) {
@@ -145,15 +145,27 @@ const App = () => {
     }
   }
 
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  const getSavedCards = async () => {
+    try {
+      const savedMoviesList = await Api.getSavedMovies();
+      setSavedMovies(savedMoviesList);
+      console.log(savedMoviesList);
+    } catch (err) {
+      setErrorsMessage(ERROR_SERVER_MESSAGE);
+    }
+  }
+
   //Запрос за фильмами при запуске/обновлении страницы только один раз
   useEffect(() => {
     getInitialCards();
+    getSavedCards();
   }, [loggedIn])
 
   const [foundMovies, setFoundMovies] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
 
   const handleCheck = (active) => {
     setIsChecked(active);
@@ -164,14 +176,20 @@ const App = () => {
       setLoading(true);
       setErrorsMessage('');
       const filteredMovies = filterArray(cards, movieReq, isChecked);
+
       console.log(filteredMovies);
+
       if (cards && (filteredMovies.length === 0)) {
         setErrorsMessage(NOT_FOUND_MESSAGE);
       }
       localStorage.setItem('movieRequest', movieReq);
       localStorage.setItem('checkBox', isChecked);
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-      setFoundMovies(filteredMovies);
+
+      const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
+      setFoundMovies(moviesWithSaved);
+
+      console.log(moviesWithSaved);
     } catch (err) {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     } finally {
@@ -181,13 +199,40 @@ const App = () => {
 
   const handleSaveCard = async (card) => {
     try {
-      const newCard = await Api.addNewMovie(card);
-      setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? newCard : currentCard));
+      const newCard = await Api.addNewMovie(adaptCardToSaved(card));
+
+      card.saved = true;
+      //Реакт перерисовает только карточку, на которую поставили/убрали лайк. 
+      setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? card : currentCard));
       setSavedMovies([newCard, ...savedMovies]);
     } catch (err) {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     }
   }
+
+  const handleUnsaveCard = async (card) => {
+    try {
+      const savedCard = savedMovies.filter((savedMovie) => savedMovie.movieId === card.movieId)[0];
+      const result = await Api.deleteMovie(savedCard._id);
+      if (result) {
+        const updatedSavedMovies = savedMovies.filter((savedMovie) => savedMovie._id !== savedCard._id);
+        setSavedMovies(updatedSavedMovies);
+        card.saved = false;
+        setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? card : currentCard));
+
+      }
+    } catch (err) {
+      const error = await err.json();
+      console.log(error.message);
+      setErrorsMessage(ERROR_SERVER_MESSAGE);
+    }
+  }
+
+  // useEffect(() => {
+  //   const filteredMovies = localStorage.getItem('filteredMovies');
+  //   const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
+  //   setFoundMovies(moviesWithSaved);
+  // }, [savedMovies, ])
 
   return (
     //Используем данные из currentUser для всех элементов с помощью провайдера контекста
@@ -207,6 +252,7 @@ const App = () => {
                 movies={foundMovies}
                 moviesErrorMessage={errorsMessage}
                 onCardSave={handleSaveCard}
+                onCardDelete={handleUnsaveCard}
               />
             </ProtectedRoute>
           }
@@ -217,6 +263,7 @@ const App = () => {
               <SavedMovies
                 loggedIn={loggedIn}
                 movies={savedMovies}
+                moviesErrorMessage={errorsMessage}
               />
             </ProtectedRoute>
           }

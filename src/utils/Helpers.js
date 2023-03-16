@@ -47,29 +47,74 @@ export const filterArray = (movies, movieRequest, isChecked) => {
     }
 }
 
-export const getNewCard = ({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    id,
-    nameRU,
-    nameEN,
-}) => {
+export const addSavedToArray = (savedArray, array) => {
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < savedArray.length; j++) {
+            if (savedArray[j].movieId === array[i].movieId) {
+                array[i]['saved'] = true;
+            }
+        }
+    }
+    return array;
+}
+
+// export const getNewCard = ({
+//     country,
+//     director,
+//     duration,
+//     year,
+//     description,
+//     image,
+//     trailerLink,
+//     id,
+//     nameRU,
+//     nameEN,
+// }) => {
+//     return {
+//         country,
+//         director,
+//         duration,
+//         year,
+//         description,
+//         image: MOVIES_URL + image.url,
+//         trailerLink,
+//         thumbnail: MOVIES_URL + image.formats.thumbnail.url,
+//         movieId: id,
+//         nameRU,
+//         nameEN,
+//         isSaved: false,
+//     }
+// }
+
+export const adaptCardToMovies = (card) => {
     return {
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image: MOVIES_URL + image.url,
-        trailerLink,
-        thumbnail: MOVIES_URL + image.formats.thumbnail.url,
-        movieId: id,
-        nameRU,
-        nameEN,
+        country: card.country,
+        director: card.director,
+        duration: card.duration,
+        year: card.year,
+        description: card.description,
+        image: MOVIES_URL + card.image.url,
+        trailerLink: card.trailerLink,
+        thumbnail: MOVIES_URL + card.image.formats.thumbnail.url,
+        movieId: card.id,
+        nameRU: card.nameRU,
+        nameEN: card.nameEN,
+        saved: false,
+    }
+}
+
+export const adaptCardToSaved = (card) => {
+    return {
+        country: card.country,
+        director: card.director,
+        duration: card.duration,
+        year: card.year,
+        description: card.description,
+        image: card.image,
+        trailerLink: card.trailerLink,
+        thumbnail: card.thumbnail,
+        movieId: card.movieId,
+        nameRU: card.nameRU,
+        nameEN: card.nameEN,
     }
 }

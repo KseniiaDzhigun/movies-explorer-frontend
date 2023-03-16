@@ -13,7 +13,7 @@ const Movies = ({
     movies,
     moviesErrorMessage,
     onCardSave,
-    isSaved
+    onCardDelete,
 }) => {
 
     return (
@@ -26,6 +26,7 @@ const Movies = ({
                     movies={movies}
                     errorsMessage={moviesErrorMessage}
                     onCardSave={onCardSave}
+                    onCardDelete={onCardDelete}
                 />
             </main>
             <Footer />
