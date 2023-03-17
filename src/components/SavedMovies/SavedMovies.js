@@ -4,17 +4,21 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-const SavedMovies = ({ loggedIn, movies, moviesErrorMessage }) => {
+const SavedMovies = ({ loggedIn, movies, moviesErrorMessage, onCardDelete }) => {
 
     return (
         <>
-        <Header loggedIn={loggedIn}/>
-        <main className="movies__content">
-            <SearchForm />
-            <MoviesCardList movies={movies} errorsMessage={moviesErrorMessage}/>
-        </main>
-        <Footer />
-    </>
+            <Header loggedIn={loggedIn} />
+            <main className="movies__content">
+                <SearchForm />
+                <MoviesCardList
+                    movies={movies}
+                    errorsMessage={moviesErrorMessage}
+                    onCardDelete={onCardDelete}
+                />
+            </main>
+            <Footer />
+        </>
     );
 }
 

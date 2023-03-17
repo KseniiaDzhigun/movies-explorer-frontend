@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useWindowSize } from '../../utils/Hooks';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardDelete }) => {
+const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCardDelete }) => {
 
     const size = useWindowSize();
     const location = useLocation().pathname;
@@ -54,12 +54,12 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardDelete }) => 
                             ) : (
                                 <ul className="cards__elements">
                                     {moviesList.map((card) => (
-                                    <MoviesCard 
-                                    card={card} 
-                                    key={card.movieId} 
-                                    onCardSave={onCardSave}
-                                    onCardDelete={onCardDelete}
-                                    />))}
+                                        <MoviesCard
+                                            card={card}
+                                            key={card.movieId}
+                                            onCardSave={onCardSave}
+                                            onCardUnsave={onCardUnsave}
+                                        />))}
                                 </ul>
                             )
                         }

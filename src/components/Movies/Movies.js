@@ -10,10 +10,10 @@ const Movies = ({
     onSearch,
     onCheck,
     loading,
-    movies,
     moviesErrorMessage,
     onCardSave,
-    onCardDelete,
+    onCardUnsave,
+    movies,
 }) => {
 
     return (
@@ -26,7 +26,7 @@ const Movies = ({
                     movies={movies}
                     errorsMessage={moviesErrorMessage}
                     onCardSave={onCardSave}
-                    onCardDelete={onCardDelete}
+                    onCardUnsave={onCardUnsave}
                 />
             </main>
             <Footer />

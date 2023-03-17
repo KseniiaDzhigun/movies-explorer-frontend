@@ -182,14 +182,14 @@ const App = () => {
       if (cards && (filteredMovies.length === 0)) {
         setErrorsMessage(NOT_FOUND_MESSAGE);
       }
-      localStorage.setItem('movieRequest', movieReq);
-      localStorage.setItem('checkBox', isChecked);
-      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
 
       const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
       setFoundMovies(moviesWithSaved);
 
-      console.log(moviesWithSaved);
+      localStorage.setItem('movieRequest', movieReq);
+      localStorage.setItem('checkBox', isChecked);
+      localStorage.setItem('filteredMovies', JSON.stringify(moviesWithSaved));
+
     } catch (err) {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     } finally {
@@ -228,11 +228,23 @@ const App = () => {
     }
   }
 
-  // useEffect(() => {
-  //   const filteredMovies = localStorage.getItem('filteredMovies');
-  //   const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
-  //   setFoundMovies(moviesWithSaved);
-  // }, [savedMovies, ])
+  const handleDeleteCard = async (card) => {
+    try {
+      const result = await Api.deleteMovie(card._id);
+      if (result) {
+        const updatedSavedMovies = savedMovies.filter((savedMovie) => savedMovie._id !== card._id);
+        setSavedMovies(updatedSavedMovies);
+        const savedCard = foundMovies.filter((foundMovie) => foundMovie.movieId === card.movieId)[0];
+        savedCard.saved = false;
+        setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? savedCard : currentCard));
+      }
+    } catch (err) {
+      const error = await err.json();
+      console.log(error.message);
+      setErrorsMessage(ERROR_SERVER_MESSAGE);
+    }
+  }
+
 
   return (
     //Используем данные из currentUser для всех элементов с помощью провайдера контекста
@@ -252,7 +264,7 @@ const App = () => {
                 movies={foundMovies}
                 moviesErrorMessage={errorsMessage}
                 onCardSave={handleSaveCard}
-                onCardDelete={handleUnsaveCard}
+                onCardUnsave={handleUnsaveCard}
               />
             </ProtectedRoute>
           }
@@ -264,6 +276,7 @@ const App = () => {
                 loggedIn={loggedIn}
                 movies={savedMovies}
                 moviesErrorMessage={errorsMessage}
+                onCardDelete={handleDeleteCard}
               />
             </ProtectedRoute>
           }
