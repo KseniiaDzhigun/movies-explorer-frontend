@@ -40,6 +40,13 @@ const App = () => {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
   const [cards, setCards] = useState(null);
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  const [foundMovies, setFoundMovies] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [foundSavedMovies, setFoundSavedMovies] = useState(null);
 
   const closePopup = () => {
     setIsInfoTooltipOpen(false);
@@ -120,6 +127,10 @@ const App = () => {
       setCards([]);
       setFoundMovies([]);
       setSavedMovies([]);
+      localStorage.removeItem('userId');
+      localStorage.removeItem('filteredMovies');
+      localStorage.removeItem('movieKeyword');
+      localStorage.removeItem('checkBox');
       openInfoTooltip(true, SUCCESS_LOGOUT_MESSAGE);
       navigate(MAIN_ROUTE);
       return response;
@@ -145,8 +156,6 @@ const App = () => {
     }
   }
 
-  const [savedMovies, setSavedMovies] = useState([]);
-
   const getSavedCards = async () => {
     try {
       const savedMoviesList = await Api.getSavedMovies();
@@ -163,19 +172,15 @@ const App = () => {
     getSavedCards();
   }, [loggedIn])
 
-  const [foundMovies, setFoundMovies] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleCheck = (active) => {
+  const handleMoviesCheck = (active) => {
     setIsChecked(active);
   }
 
-  const handleSearch = (movieReq) => {
+  const handleMoviesSearch = (movieKeyword) => {
     try {
       setLoading(true);
       setErrorsMessage('');
-      const filteredMovies = filterArray(cards, movieReq, isChecked);
+      const filteredMovies = filterArray(cards, movieKeyword, isChecked);
 
       console.log(filteredMovies);
 
@@ -186,10 +191,28 @@ const App = () => {
       const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
       setFoundMovies(moviesWithSaved);
 
-      localStorage.setItem('movieRequest', movieReq);
+      localStorage.setItem('movieKeyword', movieKeyword);
       localStorage.setItem('checkBox', isChecked);
       localStorage.setItem('filteredMovies', JSON.stringify(moviesWithSaved));
 
+    } catch (err) {
+      setErrorsMessage(ERROR_SERVER_MESSAGE);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleSavedMoviesSearch = (savedMovieKeyword) => {
+    try {
+      setLoading(true);
+      setErrorsMessage('');
+      const filteredSavedMovies = filterArray(savedMovies, savedMovieKeyword, isChecked);
+
+      if (savedMovies && (filteredSavedMovies.length === 0)) {
+        setErrorsMessage(NOT_FOUND_MESSAGE);
+      }
+
+      setFoundSavedMovies(filteredSavedMovies);
     } catch (err) {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     } finally {
@@ -231,16 +254,18 @@ const App = () => {
   const handleDeleteCard = async (card) => {
     try {
       const result = await Api.deleteMovie(card._id);
-      if (result) {
-        const updatedSavedMovies = savedMovies.filter((savedMovie) => savedMovie._id !== card._id);
-        setSavedMovies(updatedSavedMovies);
-        const savedCard = foundMovies.filter((foundMovie) => foundMovie.movieId === card.movieId)[0];
+      const updatedSavedMovies = savedMovies.filter((savedMovie) => savedMovie._id !== card._id);
+      setSavedMovies(updatedSavedMovies);
+      const savedCard = foundMovies.filter((foundMovie) => foundMovie.movieId === card.movieId)[0];
+      if (savedCard) {
         savedCard.saved = false;
         setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? savedCard : currentCard));
       }
+      return result;
     } catch (err) {
+      console.log(err);
       const error = await err.json();
-      console.log(error.message);
+      console.log(error);
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     }
   }
@@ -258,8 +283,8 @@ const App = () => {
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies
                 loggedIn={loggedIn}
-                onSearch={handleSearch}
-                onCheck={handleCheck}
+                onSearch={handleMoviesSearch}
+                onCheck={handleMoviesCheck}
                 loading={loading}
                 movies={foundMovies}
                 moviesErrorMessage={errorsMessage}
@@ -273,8 +298,11 @@ const App = () => {
           <Route path={SAVED_MOVIES_ROUTE} element={
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
+                onSearch={handleSavedMoviesSearch}
+                onCheck={handleMoviesCheck}
                 loggedIn={loggedIn}
-                movies={savedMovies}
+                savedMovies={savedMovies}
+                foundMovies={foundSavedMovies}
                 moviesErrorMessage={errorsMessage}
                 onCardDelete={handleDeleteCard}
               />

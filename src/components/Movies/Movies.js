@@ -1,4 +1,5 @@
 import './Movies.css';
+import { useState } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -16,11 +17,14 @@ const Movies = ({
     movies,
 }) => {
 
+    const savedCheckStatus = JSON.parse(localStorage.getItem('checkBox'));
+    const savedRequest = localStorage.getItem('movieKeyword');
+
     return (
         <>
             <Header loggedIn={loggedIn} />
             <main className="movies__content">
-                <SearchForm onSearch={onSearch} onCheck={onCheck} />
+                <SearchForm onSearch={onSearch} onCheck={onCheck} savedCheckStatus={savedCheckStatus} savedRequest={savedRequest}/>
                 <Preloader loading={loading} />
                 <MoviesCardList
                     movies={movies}

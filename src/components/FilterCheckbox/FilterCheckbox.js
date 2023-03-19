@@ -1,9 +1,9 @@
 import './FilterCheckbox.css';
 import { useState } from 'react';
 
-const FilterCheckbox = ({ onCheck }) => {
+const FilterCheckbox = ({ onCheck, savedCheckStatus }) => {
 
-    const [isChecked, setIsChecked] = useState(JSON.parse(localStorage.getItem('checkBox')));
+    const [isChecked, setIsChecked] = useState(savedCheckStatus ? savedCheckStatus : false);
 
     const handleChange = e => {
         if (e.target.checked) {

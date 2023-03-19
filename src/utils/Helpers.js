@@ -25,7 +25,7 @@ export const inputOptions = {
     movie: {
         required: "Нужно ввести ключевое слово",
         pattern: {
-            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/,
+            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/i,
             message: "Используйте только символы кириллицы"
         },
     },
@@ -58,33 +58,6 @@ export const addSavedToArray = (savedArray, array) => {
     return array;
 }
 
-// export const getNewCard = ({
-//     country,
-//     director,
-//     duration,
-//     year,
-//     description,
-//     image,
-//     trailerLink,
-//     id,
-//     nameRU,
-//     nameEN,
-// }) => {
-//     return {
-//         country,
-//         director,
-//         duration,
-//         year,
-//         description,
-//         image: MOVIES_URL + image.url,
-//         trailerLink,
-//         thumbnail: MOVIES_URL + image.formats.thumbnail.url,
-//         movieId: id,
-//         nameRU,
-//         nameEN,
-//         isSaved: false,
-//     }
-// }
 
 export const adaptCardToMovies = (card) => {
     return {

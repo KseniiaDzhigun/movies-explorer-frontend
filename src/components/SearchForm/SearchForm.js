@@ -6,11 +6,11 @@ import border from '../../images/search-vertical-border.svg';
 import { useState } from 'react';
 import { inputOptions } from '../../utils/Helpers'
 
-const SearchForm = ({ onSearch, onCheck }) => {
+const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const [userData, setUserData] = useState(localStorage.getItem('movieRequest'))
+    const [userData, setUserData] = useState(savedRequest ? savedRequest : '')
 
     const handleChange = (e) => {
         setUserData(e.target.value);
@@ -46,7 +46,7 @@ const SearchForm = ({ onSearch, onCheck }) => {
                 alt="Разделитель"
                 className="search__border"
             />
-            <FilterCheckbox onCheck={onCheck} />
+            <FilterCheckbox onCheck={onCheck} savedCheckStatus={savedCheckStatus}/>
         </form>
     );
 }

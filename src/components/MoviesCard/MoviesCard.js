@@ -19,7 +19,10 @@ const MoviesCard = ({ card, onCardSave, onCardDelete, onCardUnsave }) => {
 
     return (
         <li className="movie__element">
-            <img src={card.image} alt={`Обложка к фильму ${card.nameRU}`} className="movie__image" />
+            <a href={card.trailerLink} target="_blank" className="movie__link" rel="noreferrer">
+                <img src={card.image} alt={`Обложка к фильму ${card.nameRU}`} className="movie__image" />
+            </a>
+
             {location === '/movies' ? (
                 <>
                     {
