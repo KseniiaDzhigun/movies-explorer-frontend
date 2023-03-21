@@ -75,7 +75,8 @@ export const register = async ({ name, email, password }) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password }),
+        credentials: 'include'
     });
     return handleResponse(response);
 }

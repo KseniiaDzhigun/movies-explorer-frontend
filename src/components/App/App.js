@@ -48,12 +48,18 @@ const App = () => {
   const savedFoundFilms = JSON.parse(localStorage.getItem('filteredMovies'));
   const [foundMovies, setFoundMovies] = useState(savedFoundFilms ? savedFoundFilms : []);
 
+  const handleAuth = (initialUserInfo) => {
+    localStorage.setItem('userId', initialUserInfo._id);
+    setCurrentUser(initialUserInfo);
+    setLoggedIn(true);
+    navigate(MOVIES_ROUTE);
+  }
+
+  // Если ответ на запрос регистрации успешен, пользователь сразу авторизуется и будет перенаправлен на страницу Movies
   const handleRegister = async (data) => {
     try {
-      const response = await Api.register(data);
-      setLoggedIn(true);
-      navigate(MOVIES_ROUTE);
-      return response;
+      const initialUserInfo = await Api.register(data);
+      handleAuth(initialUserInfo);
     } catch (err) {
       const error = await err.json();
       setErrorsMessage(error.message);
@@ -64,11 +70,8 @@ const App = () => {
     try {
       const initialUserInfo = await Api.login(data);
       //Сохраняем в localStorage id пользователя, так как токен приходит в куках
-      localStorage.setItem('userId', initialUserInfo._id);
-      setCurrentUser(initialUserInfo);
-      setLoggedIn(true);
+      handleAuth(initialUserInfo);
       getSavedCards();
-      navigate(MOVIES_ROUTE);
     } catch (err) {
       const error = await err.json();
       setErrorsMessage(error.message);
