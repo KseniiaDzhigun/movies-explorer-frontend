@@ -24,8 +24,10 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
         });
     }
 
+    // Для управления формой используем хук useForm, валидация при каждом измененении инпута
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: 'onChange' });
 
+    // Если данные введены не корректно и не отличаются от изначальных — кнопка «Редактировать» не активна
     const disabled = !isDirty || !isValid || (userData.name === currentUser.name && userData.email === currentUser.email);
 
     const onSubmit = () => {

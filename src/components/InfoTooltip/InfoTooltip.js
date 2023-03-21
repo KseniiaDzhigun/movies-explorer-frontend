@@ -2,7 +2,8 @@ import './InfoTooltip.css';
 import iconSuccessful from '../../images/InfoTooltip-successful.svg';
 import iconRejected from '../../images/InfoTooltip-rejected.svg';
 
-//Компонент модального окна,который информирует пользователя об успешной (или не очень) регистрации
+// Компонент модального окна,который информирует пользователя об успешной (или не очень) регистрации,
+// об успешном (или не очень) выходе из профиля
 
 function InfoTooltip({ isOpen, onClose, isSuccessful, errorsMessage, successfulMessage }) {
     return (

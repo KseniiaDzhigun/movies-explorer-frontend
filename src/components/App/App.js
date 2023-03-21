@@ -41,34 +41,12 @@ const App = () => {
   const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
   const [cards, setCards] = useState(null);
   const [savedMovies, setSavedMovies] = useState([]);
-
-  const [foundMovies, setFoundMovies] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [foundSavedMovies, setFoundSavedMovies] = useState(null);
 
-  const closePopup = () => {
-    setIsInfoTooltipOpen(false);
-  }
-
-  const authCheck = async () => {
-    try {
-      const userId = localStorage.getItem('userId');
-      const currentUserInfo = await Api.getCurrentUserInfo(userId);
-      setCurrentUser(currentUserInfo);
-      setLoggedIn(true);
-      navigate(MOVIES_ROUTE);
-    } catch (err) {
-      const error = await err.json();
-      console.log(`Переданный userId некорректен : ${error}`)
-    }
-  }
-
-  //Проверяем валидность токена при запуске/обновлении страницы только один раз
-  useEffect(() => {
-    authCheck()
-  }, []);
+  const savedFoundFilms = JSON.parse(localStorage.getItem('filteredMovies'));
+  const [foundMovies, setFoundMovies] = useState(savedFoundFilms ? savedFoundFilms : []);
 
   const handleRegister = async (data) => {
     try {
@@ -89,13 +67,31 @@ const App = () => {
       localStorage.setItem('userId', initialUserInfo._id);
       setCurrentUser(initialUserInfo);
       setLoggedIn(true);
+      getSavedCards();
       navigate(MOVIES_ROUTE);
-      // return initialUserInfo;
     } catch (err) {
       const error = await err.json();
       setErrorsMessage(error.message);
     }
   }
+
+  const authCheck = async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      const currentUserInfo = await Api.getCurrentUserInfo(userId);
+      setCurrentUser(currentUserInfo);
+      setLoggedIn(true);
+      navigate(MOVIES_ROUTE);
+    } catch (err) {
+      const error = await err.json();
+      console.log(`Переданный userId некорректен : ${error}`)
+    }
+  }
+
+  //Проверяем валидность токена при запуске/обновлении страницы только один раз
+  useEffect(() => {
+    authCheck()
+  }, []);
 
   const openInfoTooltip = (successful, message) => {
     if (successful) {
@@ -107,6 +103,10 @@ const App = () => {
       setErrorsMessage(message);
       setIsInfoTooltipOpen(true);
     }
+  }
+
+  const closePopup = () => {
+    setIsInfoTooltipOpen(false);
   }
 
   const handleUpdateUser = async (data) => {
@@ -124,7 +124,6 @@ const App = () => {
     try {
       const response = await Api.signout();
       setLoggedIn(false);
-      setCards([]);
       setFoundMovies([]);
       setSavedMovies([]);
       localStorage.removeItem('userId');
@@ -144,6 +143,7 @@ const App = () => {
     setErrorsMessage('')
   }, [location])
 
+  // Получаем все фильмы из BeatfilmMoviesApi при загрузке приложения и сохраняем в стейт
   const getInitialCards = async () => {
     try {
       const initialMovies = await MoviesApi.getInitialFilms();
@@ -156,6 +156,7 @@ const App = () => {
     }
   }
 
+  // Получаем сохраненные фильмы пользователя при успешном логине и перезагрузке приложения
   const getSavedCards = async () => {
     try {
       const savedMoviesList = await Api.getSavedMovies();
@@ -166,16 +167,18 @@ const App = () => {
     }
   }
 
-  //Запрос за фильмами при запуске/обновлении страницы только один раз
+  //Запрос за фильмами с BeatfilmMoviesApi и за сохраненными фильмами пользователя при запуске/обновлении страницы только один раз
   useEffect(() => {
     getInitialCards();
     getSavedCards();
-  }, [loggedIn])
+  }, [])
 
+  // Меняем состояние стейта в зависимости от состояния чекбокса в компоненте FilterCheckBox
   const handleMoviesCheck = (active) => {
     setIsChecked(active);
   }
 
+  // Поиск по всему списку фильмов в компоненте Movies
   const handleMoviesSearch = (movieKeyword) => {
     try {
       setLoading(true);
@@ -202,6 +205,14 @@ const App = () => {
     }
   }
 
+  // Обновляем список отфильтрованных по запросу фильмов в LocalStorage не только при поиске, но и при изменении списка сохраненных фильмов
+  useEffect(() => {
+    if (foundMovies.length > 0) {
+      localStorage.setItem('filteredMovies', JSON.stringify(foundMovies));
+    }
+  }, [foundMovies])
+
+  // Поиск по списку сохранённых фильмов в компоненте SavedMovies
   const handleSavedMoviesSearch = (savedMovieKeyword) => {
     try {
       setLoading(true);
@@ -220,12 +231,14 @@ const App = () => {
     }
   }
 
+  // Нажимаем на кнопку Сохранить фильма в Movies
+  // Меняем статус фильма в списке Movies (сохранён) и добавляем фильм в SavedMovies
   const handleSaveCard = async (card) => {
     try {
       const newCard = await Api.addNewMovie(adaptCardToSaved(card));
 
       card.saved = true;
-      //Реакт перерисовает только карточку, на которую поставили/убрали лайк. 
+      //Реакт перерисовает только карточку, которую сохранили
       setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? card : currentCard));
       setSavedMovies([newCard, ...savedMovies]);
     } catch (err) {
@@ -233,6 +246,8 @@ const App = () => {
     }
   }
 
+  // Нажимаем на галочку сохраненного фильма в Movies
+  // Меняем статус фильма в списке Movies (не сохранён) и удаляем фильм в SavedMovies
   const handleUnsaveCard = async (card) => {
     try {
       const savedCard = savedMovies.filter((savedMovie) => savedMovie.movieId === card.movieId)[0];
@@ -242,7 +257,6 @@ const App = () => {
         setSavedMovies(updatedSavedMovies);
         card.saved = false;
         setFoundMovies((state) => state.map((currentCard) => currentCard.movieId === card.movieId ? card : currentCard));
-
       }
     } catch (err) {
       const error = await err.json();
@@ -251,6 +265,8 @@ const App = () => {
     }
   }
 
+  // Нажимаем на крестик фильма в SavedMovies, удаляем фильм в SavedMovies
+  // Меняем статус фильма в списке Movies (не сохранён), если этот фильм показывается в списке отфильтрованных на данный момент
   const handleDeleteCard = async (card) => {
     try {
       const result = await Api.deleteMovie(card._id);
@@ -269,7 +285,6 @@ const App = () => {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     }
   }
-
 
   return (
     //Используем данные из currentUser для всех элементов с помощью провайдера контекста

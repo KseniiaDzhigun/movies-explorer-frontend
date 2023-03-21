@@ -17,6 +17,8 @@ const MoviesCard = ({ card, onCardSave, onCardDelete, onCardUnsave }) => {
         onCardDelete(card);
     }
 
+    // Если фильм в Movies - кнопка Сохранить и галочка сохраненного фильма
+    // Если фильм в SavedMovies - кнопка удаления фильма
     return (
         <li className="movie__element">
             <a href={card.trailerLink} target="_blank" className="movie__link" rel="noreferrer">

@@ -1,4 +1,7 @@
+// Адрес сервера на поддомене
 // export const BASE_URL = 'https://api.dzhigun.movies.nomoredomainsclub.ru';
+
+// Адрес локального сервера 
 export const BASE_URL = 'http://localhost:3001';
 
 export const handleResponse = (response) => {

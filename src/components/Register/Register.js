@@ -20,6 +20,7 @@ const Register = ({ onRegister, errorsMessage }) => {
         });
     }
 
+    // Для управления формой используем хук useForm, валидация при каждом измененении инпута
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({mode: 'onChange'});
 
     const onSubmit = () => {
@@ -42,7 +43,6 @@ const Register = ({ onRegister, errorsMessage }) => {
             <input
                 value={userData.name}
                 id="name-input"
-                // name="name"
                 type="text"
                 className={errors.name ? "sign__input sign__input_error" : "sign__input"}
                 {...register("name", {...inputOptions.name, onChange: handleChange})}
@@ -54,7 +54,6 @@ const Register = ({ onRegister, errorsMessage }) => {
             <input
                 value={userData.email}
                 id="email-input"
-                name="email"
                 type="email"
                 {...register("email", {...inputOptions.email, onChange: handleChange})}
                 className={errors.email ? "sign__input sign__input_error" : "sign__input"}
@@ -66,7 +65,6 @@ const Register = ({ onRegister, errorsMessage }) => {
             <input
                 value={userData.password} 
                 id="password-input" 
-                name="password"
                 type="password" 
                 className={errors.password ? "sign__input sign__input_error" : "sign__input"}
                 {...register("password", {...inputOptions.password, onChange: handleChange})}

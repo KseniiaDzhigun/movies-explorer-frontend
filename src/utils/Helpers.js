@@ -1,5 +1,6 @@
 import { MOVIES_URL } from './Constants'
 
+// Валидация данных, введённых пользователем
 export const inputOptions = {
     name: {
         required: "Обязательное поле",
@@ -25,15 +26,14 @@ export const inputOptions = {
     movie: {
         required: "Нужно ввести ключевое слово",
         pattern: {
-            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/i,
+            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/,
             message: "Используйте только символы кириллицы"
         },
     },
 };
 
+// Сортировка фильмов по ключевому слову, которое ввёл пользователь, и чекбоксу для короткометражных фильмов
 export const filterArray = (movies, movieRequest, isChecked) => {
-    console.log(isChecked);
-
     if (isChecked) {
         const result = movies.filter(function checkMovies(movie) {
             return ((movie.duration <= 40) && movie.nameRU.includes(movieRequest));
@@ -47,6 +47,7 @@ export const filterArray = (movies, movieRequest, isChecked) => {
     }
 }
 
+// Уже сохранённые пользователем фильмы в блоке результатов Movies имеют активную иконку лайка
 export const addSavedToArray = (savedArray, array) => {
     for (let i = 0; i < array.length; i++) {
         for (let j = 0; j < savedArray.length; j++) {
@@ -58,6 +59,7 @@ export const addSavedToArray = (savedArray, array) => {
     return array;
 }
 
+// Адаптируем данные фильма, которые пришли с BeatfilmMoviesApi для карточки фильма в Movies
 
 export const adaptCardToMovies = (card) => {
     return {
@@ -76,6 +78,7 @@ export const adaptCardToMovies = (card) => {
     }
 }
 
+// Адаптируем данные фильма из списка в Movies для сохранения фильма на нашем сервере
 export const adaptCardToSaved = (card) => {
     return {
         country: card.country,

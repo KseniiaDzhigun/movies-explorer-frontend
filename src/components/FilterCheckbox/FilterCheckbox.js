@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 const FilterCheckbox = ({ onCheck, savedCheckStatus }) => {
 
+    // Если в LocalStorage сохранено состояние чекбокса, используем его при перезагрузке страницы
     const [isChecked, setIsChecked] = useState(savedCheckStatus ? savedCheckStatus : false);
 
     const handleChange = e => {

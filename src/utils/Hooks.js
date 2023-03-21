@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+// Хук для измерения текущего размера окна браузера
+// Возвращает объект, содержащий ширину и высоту окна браузера
+
 export const useWindowSize = () => {
 
     const [windowSize, setWindowSize] = useState({

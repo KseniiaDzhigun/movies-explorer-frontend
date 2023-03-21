@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/header-logo.svg';
 import Navigation from '../Navigation/Navigation';
 
+// У шапки сайта есть два состояния: авторизованное и неавторизованное
+
 const Header = ({ loggedIn, main }) => {
     return (
         <header className={loggedIn ? (main ? "header header_type_movies header_type_main-location" : "header header_type_movies") : "header header_type_main header_type_main-location"}>

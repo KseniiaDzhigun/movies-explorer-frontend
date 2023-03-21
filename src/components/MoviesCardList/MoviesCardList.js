@@ -11,6 +11,8 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCar
 
     const [moviesNumber, setMoviesNumber] = useState(0);
     const [addedMoviesNumber, setAddedMoviesNumber] = useState(0);
+
+    // Список видимых фильмов
     const [moviesList, setMoviesList] = useState(movies);
 
     const getMoviesNumber = () => {
@@ -37,7 +39,7 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCar
         setMoviesList(movies.slice(0, moviesNumber));
     }, [movies, moviesNumber]);
 
-
+    // Увеличиваем количество видимых карточек при нажатии кнопки Ещё
     const handleAddMovies = () => {
         setMoviesNumber(moviesNumber + addedMoviesNumber);
     }

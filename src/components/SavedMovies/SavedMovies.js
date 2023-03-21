@@ -12,13 +12,16 @@ const SavedMovies = ({ loggedIn, savedMovies, foundMovies, moviesErrorMessage, o
 
     const [movies, setMovies] = useState(savedMovies);
 
+    // Отфильтрованные сохраненные фильмы
     useEffect(() => {
         if (foundMovies !== null) setMovies(foundMovies)
     }, [foundMovies])
 
+    // При переходе на другую страницу или при обновлении списка сохранённых фильмов 
+    // поиск сбрасывается и показывается изначальный список сохранённых фильмов
     useEffect(() => {
         setMovies(savedMovies)
-      }, [location, savedMovies])
+    }, [location, savedMovies])
 
     return (
         <>

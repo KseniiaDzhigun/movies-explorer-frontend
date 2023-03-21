@@ -10,6 +10,7 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    // Если в LocalStorage сохранен текст запроса, вставляем его в строку поиска при перезагрузке страницы
     const [userData, setUserData] = useState(savedRequest ? savedRequest : '')
 
     const handleChange = (e) => {

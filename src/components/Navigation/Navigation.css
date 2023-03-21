@@ -19,7 +19,7 @@
 }
 
 .nav__link_active {
-    font-weight: 500;
+    border-bottom: 2px solid #FFFFFF;
 }
 
 /* Menu Main */
@@ -134,7 +134,6 @@
 
     .nav__link_active {
         padding: 0 0 4px 0;
-        border-bottom: 2px solid #FFFFFF;
     }
 
     .nav__links_type_movie {
