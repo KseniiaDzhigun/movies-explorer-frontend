@@ -130,6 +130,16 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .movie__button_type_delete {
+        display: block;
+    }
+
+    .movie__button_type_save {
+        display: block;
+    }
+}
+
 @media screen and (max-width: 532px) {
     .movie__element {
         max-width: 300px;

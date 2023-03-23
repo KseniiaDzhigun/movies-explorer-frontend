@@ -2,6 +2,17 @@ import './MoviesCardList.css';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useWindowSize } from '../../utils/Hooks';
+import {
+    LARGE_WINDOW_SIZE,
+    MEDIUM_WINDOW_SIZE,
+    SMALL_WINDOW_SIZE,
+    MOVIES_LARGE_WINDOW,
+    MOVIES_MEDIUM_WINDOW,
+    MOVIES_SMALL_WINDOW,
+    ADDED_MOVIES_LARGE_WINDOW,
+    ADDED_MOVIES_MEDIUM_WINDOW,
+    ADDED_MOVIES_SMALL_WINDOW,
+  } from '../../utils/Constants';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCardDelete }) => {
@@ -16,15 +27,15 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCar
     const [moviesList, setMoviesList] = useState(movies);
 
     const getMoviesNumber = () => {
-        if (size.width >= 1296) {
-            setMoviesNumber(12);
-            setAddedMoviesNumber(3);
-        } else if (size.width >= 497) {
-            setMoviesNumber(8);
-            setAddedMoviesNumber(2);
-        } else if (size.width >= 320) {
-            setMoviesNumber(5);
-            setAddedMoviesNumber(2);
+        if (size.width >= LARGE_WINDOW_SIZE) {
+            setMoviesNumber(MOVIES_LARGE_WINDOW);
+            setAddedMoviesNumber(ADDED_MOVIES_LARGE_WINDOW);
+        } else if (size.width >= MEDIUM_WINDOW_SIZE) {
+            setMoviesNumber(MOVIES_MEDIUM_WINDOW);
+            setAddedMoviesNumber(ADDED_MOVIES_MEDIUM_WINDOW);
+        } else if (size.width >= SMALL_WINDOW_SIZE) {
+            setMoviesNumber(MOVIES_SMALL_WINDOW);
+            setAddedMoviesNumber(ADDED_MOVIES_SMALL_WINDOW);
         }
     }
 

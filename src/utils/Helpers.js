@@ -1,4 +1,4 @@
-import { MOVIES_URL } from './Constants'
+import { MOVIES_URL, SHORT_DURATION } from './Constants'
 
 // Валидация данных, введённых пользователем
 export const inputOptions = {
@@ -26,22 +26,23 @@ export const inputOptions = {
     movie: {
         required: "Нужно ввести ключевое слово",
         pattern: {
-            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/,
+            value: /^[-?!,.а-яА-ЯёЁ0-9\s]+$/i,
             message: "Используйте только символы кириллицы"
         },
     },
 };
 
 // Сортировка фильмов по ключевому слову, которое ввёл пользователь, и чекбоксу для короткометражных фильмов
-export const filterArray = (movies, movieRequest, isChecked) => {
+export const filterArray = (movies, keyword, isChecked) => {
+    const request = new RegExp(keyword, 'i');
     if (isChecked) {
         const result = movies.filter(function checkMovies(movie) {
-            return ((movie.duration <= 40) && movie.nameRU.includes(movieRequest));
+            return ((movie.duration <= SHORT_DURATION) && request.test(movie.nameRU));
         })
         return result;
     } else {
         const result = movies.filter(function checkMovies(movie) {
-            return ((movie.duration > 40) && movie.nameRU.includes(movieRequest));
+            return ((movie.duration > SHORT_DURATION) && request.test(movie.nameRU));
         })
         return result;
     }
