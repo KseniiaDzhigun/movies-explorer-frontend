@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { inputOptions } from '../../utils/Helpers'
 
-const Profile = ({ loggedIn, onLogout, onUpdate }) => {
+const Profile = ({ loggedIn, onLogout, onUpdate, disabled }) => {
 
     const currentUser = useContext(CurrentUserContext);
 
@@ -28,7 +28,7 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: 'onChange' });
 
     // Если данные введены не корректно и не отличаются от изначальных — кнопка «Редактировать» не активна
-    const disabled = !isDirty || !isValid || (userData.name === currentUser.name && userData.email === currentUser.email);
+    const submitButtonDisabled = !isDirty || !isValid || disabled || (userData.name === currentUser.name && userData.email === currentUser.email);
 
     const onSubmit = () => {
         let { name, email } = userData;
@@ -41,7 +41,7 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
             <main className="profile__content">
                 <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <form className="profile__form" onSubmit={handleSubmit(onSubmit)} >
-                    <fieldset className="profile__form-set">
+                    <fieldset className="profile__form-set" disabled={disabled}>
 
                         <div className="profile__field">
                             <label htmlFor="name-input" className="profile__label">Имя</label>
@@ -76,8 +76,8 @@ const Profile = ({ loggedIn, onLogout, onUpdate }) => {
                     </fieldset>
                     <button
                         type="submit"
-                        disabled={disabled}
-                        className={disabled ? "profile__submit-button profile__submit-button_disabled" : "profile__submit-button"} >
+                        disabled={submitButtonDisabled}
+                        className={submitButtonDisabled ? "profile__submit-button profile__submit-button_disabled" : "profile__submit-button"} >
                         Редактировать
                     </button>
                 </form>

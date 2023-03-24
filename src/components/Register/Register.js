@@ -4,7 +4,7 @@ import SignForm from '../SignForm/SignForm';
 import { useForm } from 'react-hook-form';
 import { inputOptions } from '../../utils/Helpers';
 
-const Register = ({ onRegister, errorsMessage }) => {
+const Register = ({ onRegister, errorsMessage, disabled }) => {
 
     const [userData, setUserData] = useState({
         name: '',
@@ -36,8 +36,9 @@ const Register = ({ onRegister, errorsMessage }) => {
             link="/signin"
             linkText="Войти"
             onSubmit={handleSubmit(onSubmit)}
-            disabled={!isDirty || !isValid} 
+            buttonDisabled={!isDirty || !isValid || disabled} 
             errorsMessage={errorsMessage}
+            inputsDisabled={disabled}
         >
             <label htmlFor="name-input" className="sign__label">Имя</label>
             <input

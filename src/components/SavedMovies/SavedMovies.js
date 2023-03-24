@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-const SavedMovies = ({ loggedIn, savedMovies, foundMovies, moviesErrorMessage, onCardDelete, onSearch, onCheck }) => {
+const SavedMovies = ({ loggedIn, savedMovies, foundMovies, moviesErrorMessage, onCardDelete, onSearch, onCheck, disabled }) => {
 
     const location = useLocation();
 
@@ -27,7 +27,7 @@ const SavedMovies = ({ loggedIn, savedMovies, foundMovies, moviesErrorMessage, o
         <>
             <Header loggedIn={loggedIn} />
             <main className="movies__content">
-                <SearchForm onSearch={onSearch} onCheck={onCheck} />
+                <SearchForm onSearch={onSearch} onCheck={onCheck} disabled={disabled} />
                 <MoviesCardList
                     movies={movies}
                     errorsMessage={moviesErrorMessage}

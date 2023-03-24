@@ -32,6 +32,7 @@ const App = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const locationPath = location.pathname;
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState('');
@@ -39,11 +40,14 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
-  const [cards, setCards] = useState(null);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [foundSavedMovies, setFoundSavedMovies] = useState(null);
+  const [disabled, setDisabled] = useState(false);
+
+  const savedBeatfilmMovies = JSON.parse(localStorage.getItem('beatfilmMovies'));
+  const [cards, setCards] = useState(savedBeatfilmMovies ? savedBeatfilmMovies : null);
 
   const savedFoundFilms = JSON.parse(localStorage.getItem('filteredMovies'));
   const [foundMovies, setFoundMovies] = useState(savedFoundFilms ? savedFoundFilms : []);
@@ -58,16 +62,20 @@ const App = () => {
   // Если ответ на запрос регистрации успешен, пользователь сразу авторизуется и будет перенаправлен на страницу Movies
   const handleRegister = async (data) => {
     try {
+      setDisabled(true);
       const initialUserInfo = await Api.register(data);
       handleAuth(initialUserInfo);
     } catch (err) {
       const error = await err.json();
       setErrorsMessage(error.message);
+    } finally {
+      setDisabled(false);
     }
   }
 
   const handleLogin = async (data) => {
     try {
+      setDisabled(true);
       const initialUserInfo = await Api.login(data);
       //Сохраняем в localStorage id пользователя, так как токен приходит в куках
       handleAuth(initialUserInfo);
@@ -75,6 +83,8 @@ const App = () => {
     } catch (err) {
       const error = await err.json();
       setErrorsMessage(error.message);
+    } finally {
+      setDisabled(false);
     }
   }
 
@@ -84,7 +94,7 @@ const App = () => {
       const currentUserInfo = await Api.getCurrentUserInfo(userId);
       setCurrentUser(currentUserInfo);
       setLoggedIn(true);
-      navigate(MOVIES_ROUTE);
+      navigate(locationPath);
     } catch (err) {
       const error = await err.json();
       console.log(`Переданный userId некорректен : ${error}`)
@@ -114,12 +124,15 @@ const App = () => {
 
   const handleUpdateUser = async (data) => {
     try {
+      setDisabled(true);
       const updatedUserInfo = await Api.updateUserInfo(data);
       setCurrentUser(updatedUserInfo);
       openInfoTooltip(true, UPDATE_PROFILE_MESSAGE);
     } catch (err) {
       const error = await err.json();
       openInfoTooltip(false, error.message);
+    } finally {
+      setDisabled(false);
     }
   }
 
@@ -129,6 +142,7 @@ const App = () => {
       setLoggedIn(false);
       setFoundMovies([]);
       setSavedMovies([]);
+      setCards(null);
       localStorage.removeItem('userId');
       localStorage.removeItem('filteredMovies');
       localStorage.removeItem('movieKeyword');
@@ -146,19 +160,6 @@ const App = () => {
     setErrorsMessage('')
   }, [location])
 
-  // Получаем все фильмы из BeatfilmMoviesApi при загрузке приложения и сохраняем в стейт
-  const getInitialCards = async () => {
-    try {
-      const initialMovies = await MoviesApi.getInitialFilms();
-      const initialMoviesList = initialMovies.map(movie => adaptCardToMovies(movie));
-      setCards(initialMoviesList);
-      console.log(initialMoviesList);
-    } catch (err) {
-      const error = await err.json();
-      console.log(error.message);
-    }
-  }
-
   // Получаем сохраненные фильмы пользователя при успешном логине и перезагрузке приложения
   const getSavedCards = async () => {
     try {
@@ -172,7 +173,6 @@ const App = () => {
 
   //Запрос за фильмами с BeatfilmMoviesApi и за сохраненными фильмами пользователя при запуске/обновлении страницы только один раз
   useEffect(() => {
-    getInitialCards();
     getSavedCards();
   }, [])
 
@@ -181,30 +181,47 @@ const App = () => {
     setIsChecked(active);
   }
 
+  const filterMovies = (movies, movieKeyword) => {
+    // Фильтрация адаптированного списка BeatfilmMovies по ключевому слову и продолжительности
+    const filteredMovies = filterArray(movies, movieKeyword, isChecked);
+
+    console.log(filteredMovies);
+
+    if (movies && (filteredMovies.length === 0)) {
+      setErrorsMessage(NOT_FOUND_MESSAGE);
+    }
+    // В найденных фильмах показываются уже сохранённые пользователем фильмы
+    const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
+    setFoundMovies(moviesWithSaved);
+
+    localStorage.setItem('movieKeyword', movieKeyword);
+    localStorage.setItem('checkBox', isChecked);
+    localStorage.setItem('filteredMovies', JSON.stringify(moviesWithSaved));
+  }
+
   // Поиск по всему списку фильмов в компоненте Movies
-  const handleMoviesSearch = (movieKeyword) => {
+  const handleMoviesSearch = async (movieKeyword) => {
     try {
       setLoading(true);
+      setDisabled(true);
       setErrorsMessage('');
-      const filteredMovies = filterArray(cards, movieKeyword, isChecked);
 
-      console.log(filteredMovies);
+      if (!cards) {
+        const initialMovies = await MoviesApi.getInitialFilms();
+        const initialMoviesList = initialMovies.map(movie => adaptCardToMovies(movie));
+        localStorage.setItem('beatfilmMovies', JSON.stringify(initialMoviesList));
+        setCards(initialMoviesList);
 
-      if (cards && (filteredMovies.length === 0)) {
-        setErrorsMessage(NOT_FOUND_MESSAGE);
+        filterMovies(initialMoviesList, movieKeyword);
+
+      } else {
+        filterMovies(cards, movieKeyword);
       }
-
-      const moviesWithSaved = addSavedToArray(savedMovies, filteredMovies);
-      setFoundMovies(moviesWithSaved);
-
-      localStorage.setItem('movieKeyword', movieKeyword);
-      localStorage.setItem('checkBox', isChecked);
-      localStorage.setItem('filteredMovies', JSON.stringify(moviesWithSaved));
-
     } catch (err) {
       setErrorsMessage(ERROR_SERVER_MESSAGE);
     } finally {
       setLoading(false);
+      setDisabled(false);
     }
   }
 
@@ -308,6 +325,7 @@ const App = () => {
                 moviesErrorMessage={errorsMessage}
                 onCardSave={handleSaveCard}
                 onCardUnsave={handleUnsaveCard}
+                disabled={disabled}
               />
             </ProtectedRoute>
           }
@@ -323,6 +341,7 @@ const App = () => {
                 foundMovies={foundSavedMovies}
                 moviesErrorMessage={errorsMessage}
                 onCardDelete={handleDeleteCard}
+                disabled={disabled}
               />
             </ProtectedRoute>
           }
@@ -334,14 +353,15 @@ const App = () => {
                 loggedIn={loggedIn}
                 onLogout={handleLogout}
                 onUpdate={handleUpdateUser}
+                disabled={disabled}
               />
             </ProtectedRoute>
           }
           />
 
-          <Route path={LOGIN_ROUTE} element={<Login onLogin={handleLogin} errorsMessage={errorsMessage} />} />
+          <Route path={LOGIN_ROUTE} element={<Login onLogin={handleLogin} errorsMessage={errorsMessage} disabled={disabled} />} />
 
-          <Route path={REGISTER_ROUTE} element={<Register onRegister={handleRegister} errorsMessage={errorsMessage} />} />
+          <Route path={REGISTER_ROUTE} element={<Register onRegister={handleRegister} errorsMessage={errorsMessage} disabled={disabled}/>} />
 
           <Route path="*" element={<PageNotFound />} />
 

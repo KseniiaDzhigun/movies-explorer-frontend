@@ -19,6 +19,7 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCar
 
     const size = useWindowSize();
     const location = useLocation().pathname;
+    const keyword = localStorage.getItem('movieKeyword');
 
     const [moviesNumber, setMoviesNumber] = useState(0);
     const [addedMoviesNumber, setAddedMoviesNumber] = useState(0);
@@ -43,7 +44,7 @@ const MoviesCardList = ({ movies, errorsMessage, onCardSave, onCardUnsave, onCar
     // При каждом новом поиске количество карточек возвращается к исходному значению
     useEffect(() => {
         getMoviesNumber();
-    }, [size, movies]);
+    }, [size, keyword]);
 
     // При изменении количества и каждом новом поиске обновляем список фильмов
     useEffect(() => {

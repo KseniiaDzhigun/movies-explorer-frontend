@@ -6,7 +6,7 @@ import border from '../../images/search-vertical-border.svg';
 import { useState } from 'react';
 import { inputOptions } from '../../utils/Helpers'
 
-const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus }) => {
+const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus, disabled }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -23,7 +23,7 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus }) => {
 
     return (
         <form className="search__form" onSubmit={handleSubmit(onSubmit)}>
-            <fieldset className="search__form-set">
+            <fieldset className="search__form-set" disabled={disabled}>
                 <img
                     src={icon}
                     alt="Лупа"
@@ -40,14 +40,14 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus }) => {
                     />
                     <p className="search__error">{errors.movieReq ? errors.movieReq.message : ''}</p>
                 </div>
-                <button type="submit" className="search__button-submit"></button>
+                <button type="submit" className="search__button-submit" disabled={disabled}></button>
             </fieldset>
             <img
                 src={border}
                 alt="Разделитель"
                 className="search__border"
             />
-            <FilterCheckbox onCheck={onCheck} savedCheckStatus={savedCheckStatus}/>
+            <FilterCheckbox onCheck={onCheck} savedCheckStatus={savedCheckStatus} disabled={disabled}/>
         </form>
     );
 }

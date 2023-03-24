@@ -14,6 +14,7 @@ const Movies = ({
     onCardSave,
     onCardUnsave,
     movies,
+    disabled,
 }) => {
 
     // При загрузке компонента получаем данные состояния чекбокса и текст запроса из LocalStorage
@@ -29,6 +30,7 @@ const Movies = ({
                     onCheck={onCheck}
                     savedCheckStatus={savedCheckStatus}
                     savedRequest={savedRequest}
+                    disabled={disabled}
                 />
                 <Preloader loading={loading} />
                 <MoviesCardList

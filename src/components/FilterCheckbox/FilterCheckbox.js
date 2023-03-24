@@ -1,7 +1,7 @@
 import './FilterCheckbox.css';
 import { useState } from 'react';
 
-const FilterCheckbox = ({ onCheck, savedCheckStatus }) => {
+const FilterCheckbox = ({ onCheck, savedCheckStatus, disabled }) => {
 
     // Если в LocalStorage сохранено состояние чекбокса, используем его при перезагрузке страницы
     const [isChecked, setIsChecked] = useState(savedCheckStatus ? savedCheckStatus : false);
@@ -25,6 +25,7 @@ const FilterCheckbox = ({ onCheck, savedCheckStatus }) => {
                     id="short-movies"
                     onChange={handleChange}
                     checked={isChecked}
+                    disabled={disabled}
                 />
                 <span className="filter__slider"></span>
             </label>

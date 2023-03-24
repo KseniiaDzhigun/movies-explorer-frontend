@@ -4,7 +4,7 @@ import SignForm from '../SignForm/SignForm';
 import { useForm } from 'react-hook-form';
 import { inputOptions } from '../../utils/Helpers';
 
-const Login = ({ onLogin, errorsMessage }) => {
+const Login = ({ onLogin, errorsMessage, disabled }) => {
 
     const [userData, setUserData] = useState({
         email: '',
@@ -35,7 +35,8 @@ const Login = ({ onLogin, errorsMessage }) => {
             link="/signup"
             linkText="Регистрация"
             onSubmit={handleSubmit(onSubmit)}
-            disabled={!isDirty || !isValid} 
+            buttonDisabled={!isDirty || !isValid || disabled} 
+            inputsDisabled={disabled}
             errorsMessage={errorsMessage}
         >
             <label htmlFor="email-input" className="sign__label">E-mail</label>
