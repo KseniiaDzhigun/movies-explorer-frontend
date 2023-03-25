@@ -33,18 +33,31 @@ export const inputOptions = {
 };
 
 // Сортировка фильмов по ключевому слову, которое ввёл пользователь, и чекбоксу для короткометражных фильмов
-export const filterArray = (movies, keyword, isChecked) => {
+// export const filterArray = (movies, keyword, isChecked) => {
+//     const request = new RegExp(keyword, 'i');
+//     if (isChecked) {
+//         const result = movies.filter(function checkMovies(movie) {
+//             return ((movie.duration <= SHORT_DURATION) && request.test(movie.nameRU));
+//         })
+//         return result;
+//     } else {
+//         const result = movies.filter(function checkMovies(movie) {
+//             return request.test(movie.nameRU);
+//         })
+//         return result;
+//     }
+// }
+
+export const filterArray = (movies, keyword) => {
     const request = new RegExp(keyword, 'i');
+    return movies.filter((movie) => request.test(movie.nameRU));
+}
+
+export const filterByCheckbox = (movies, isChecked) => {
     if (isChecked) {
-        const result = movies.filter(function checkMovies(movie) {
-            return ((movie.duration <= SHORT_DURATION) && request.test(movie.nameRU));
-        })
-        return result;
+        return  movies.filter((movie) => movie.duration <= SHORT_DURATION);
     } else {
-        const result = movies.filter(function checkMovies(movie) {
-            return ((movie.duration > SHORT_DURATION) && request.test(movie.nameRU));
-        })
-        return result;
+        return movies;
     }
 }
 

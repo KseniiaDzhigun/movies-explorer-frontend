@@ -40,17 +40,17 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipSuccessful, setIsInfoTooltipSuccessful] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [foundSavedMovies, setFoundSavedMovies] = useState(null);
   const [disabled, setDisabled] = useState(false);
+
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = useState(null);
 
   const savedBeatfilmMovies = JSON.parse(localStorage.getItem('beatfilmMovies'));
   const [cards, setCards] = useState(savedBeatfilmMovies ? savedBeatfilmMovies : null);
 
-  const savedFoundFilms = JSON.parse(localStorage.getItem('filteredMovies'));
-  const [foundMovies, setFoundMovies] = useState(savedFoundFilms ? savedFoundFilms : []);
+  const storedInFoundFilms = JSON.parse(localStorage.getItem('filteredMovies'));
+  const [foundMovies, setFoundMovies] = useState(storedInFoundFilms ? storedInFoundFilms : []);
 
   const handleAuth = (initialUserInfo) => {
     localStorage.setItem('userId', initialUserInfo._id);
@@ -176,14 +176,9 @@ const App = () => {
     getSavedCards();
   }, [])
 
-  // Меняем состояние стейта в зависимости от состояния чекбокса в компоненте FilterCheckBox
-  const handleMoviesCheck = (active) => {
-    setIsChecked(active);
-  }
-
   const filterMovies = (movies, movieKeyword) => {
-    // Фильтрация адаптированного списка BeatfilmMovies по ключевому слову и продолжительности
-    const filteredMovies = filterArray(movies, movieKeyword, isChecked);
+    // Фильтрация адаптированного списка BeatfilmMovies по ключевому слову
+    const filteredMovies = filterArray(movies, movieKeyword);
 
     console.log(filteredMovies);
 
@@ -195,7 +190,6 @@ const App = () => {
     setFoundMovies(moviesWithSaved);
 
     localStorage.setItem('movieKeyword', movieKeyword);
-    localStorage.setItem('checkBox', isChecked);
     localStorage.setItem('filteredMovies', JSON.stringify(moviesWithSaved));
   }
 
@@ -211,7 +205,6 @@ const App = () => {
         const initialMoviesList = initialMovies.map(movie => adaptCardToMovies(movie));
         localStorage.setItem('beatfilmMovies', JSON.stringify(initialMoviesList));
         setCards(initialMoviesList);
-
         filterMovies(initialMoviesList, movieKeyword);
 
       } else {
@@ -237,7 +230,7 @@ const App = () => {
     try {
       setLoading(true);
       setErrorsMessage('');
-      const filteredSavedMovies = filterArray(savedMovies, savedMovieKeyword, isChecked);
+      const filteredSavedMovies = filterArray(savedMovies, savedMovieKeyword);
 
       if (savedMovies && (filteredSavedMovies.length === 0)) {
         setErrorsMessage(NOT_FOUND_MESSAGE);
@@ -250,6 +243,12 @@ const App = () => {
       setLoading(false);
     }
   }
+
+  // При переходе на другую страницу или при обновлении списка сохранённых фильмов 
+  // поиск сбрасывается и показывается изначальный список сохранённых фильмов
+  useEffect(() => {
+    setFoundSavedMovies(null)
+  }, [location])
 
   // Нажимаем на кнопку Сохранить фильма в Movies
   // Меняем статус фильма в списке Movies (сохранён) и добавляем фильм в SavedMovies
@@ -319,7 +318,6 @@ const App = () => {
               <Movies
                 loggedIn={loggedIn}
                 onSearch={handleMoviesSearch}
-                onCheck={handleMoviesCheck}
                 loading={loading}
                 movies={foundMovies}
                 moviesErrorMessage={errorsMessage}
@@ -335,10 +333,8 @@ const App = () => {
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
                 onSearch={handleSavedMoviesSearch}
-                onCheck={handleMoviesCheck}
                 loggedIn={loggedIn}
-                savedMovies={savedMovies}
-                foundMovies={foundSavedMovies}
+                movies={(foundSavedMovies !== null) ? foundSavedMovies : savedMovies}
                 moviesErrorMessage={errorsMessage}
                 onCardDelete={handleDeleteCard}
                 disabled={disabled}
@@ -361,7 +357,7 @@ const App = () => {
 
           <Route path={LOGIN_ROUTE} element={<Login onLogin={handleLogin} errorsMessage={errorsMessage} disabled={disabled} />} />
 
-          <Route path={REGISTER_ROUTE} element={<Register onRegister={handleRegister} errorsMessage={errorsMessage} disabled={disabled}/>} />
+          <Route path={REGISTER_ROUTE} element={<Register onRegister={handleRegister} errorsMessage={errorsMessage} disabled={disabled} />} />
 
           <Route path="*" element={<PageNotFound />} />
 

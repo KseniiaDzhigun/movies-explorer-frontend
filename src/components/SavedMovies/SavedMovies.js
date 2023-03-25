@@ -1,35 +1,31 @@
 import './SavedMovies.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
-import { useLocation } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { SHORT_DURATION } from '../../utils/Constants';
 
-const SavedMovies = ({ loggedIn, savedMovies, foundMovies, moviesErrorMessage, onCardDelete, onSearch, onCheck, disabled }) => {
+const SavedMovies = ({ loggedIn, movies, moviesErrorMessage, onCardDelete, onSearch, disabled }) => {
 
-    const location = useLocation();
+    const [isChecked, setIsChecked] = useState(false);
 
-    const [movies, setMovies] = useState(savedMovies);
-
-    // Отфильтрованные сохраненные фильмы
-    useEffect(() => {
-        if (foundMovies !== null) setMovies(foundMovies)
-    }, [foundMovies])
-
-    // При переходе на другую страницу или при обновлении списка сохранённых фильмов 
-    // поиск сбрасывается и показывается изначальный список сохранённых фильмов
-    useEffect(() => {
-        setMovies(savedMovies)
-    }, [location, savedMovies])
+    // Меняем состояние стейта в зависимости от состояния чекбокса в компоненте FilterCheckBox
+    const handleCheck = (checkboxStatus) => {
+        if (checkboxStatus) {
+            setIsChecked(true);
+        } else {
+            setIsChecked(false);
+        }
+    }
 
     return (
         <>
             <Header loggedIn={loggedIn} />
             <main className="movies__content">
-                <SearchForm onSearch={onSearch} onCheck={onCheck} disabled={disabled} />
+                <SearchForm onSearch={onSearch} onCheck={handleCheck} disabled={disabled} />
                 <MoviesCardList
-                    movies={movies}
+                    movies={isChecked ? movies.filter((movie) => movie.duration <= SHORT_DURATION) : movies}
                     errorsMessage={moviesErrorMessage}
                     onCardDelete={onCardDelete}
                 />
