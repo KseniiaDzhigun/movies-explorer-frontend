@@ -36,6 +36,16 @@
     padding: 0;
 }
 
+.sign__submit-error {
+    min-height: 12px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #EE3465;
+}
+
 .sign__submit-button {
     margin: 0;
     background-color: #4285F4;
@@ -53,6 +63,11 @@
 
 .sign__submit-button:hover {
     opacity: .6;
+}
+
+.sign__submit-button_disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
 .sign__login {
@@ -107,6 +122,10 @@
         width: 260px;
     }
 
+    .sign__submit-error {
+        font-size: 10px;
+    }
+
     .sign__submit-button {
         margin: 0;
         font-size: 12px;
@@ -119,4 +138,3 @@
         line-height: 1.25;
     }
 }
-

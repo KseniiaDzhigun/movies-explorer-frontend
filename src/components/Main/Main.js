@@ -11,7 +11,7 @@ const Main = ({ loggedIn }) => {
 
     return (
         <>
-            <Header loggedIn={loggedIn}/>
+            <Header loggedIn={loggedIn} main={true}/>
             <main className="main__content">
                 <Promo loggedIn={loggedIn} />
                 <AboutProject />

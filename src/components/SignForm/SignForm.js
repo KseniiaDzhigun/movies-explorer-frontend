@@ -2,7 +2,7 @@ import './SignForm.css';
 import logo from '../../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 
-const SignForm = ({ title, button, children, text, link, linkText, onSubmit }) => {
+const SignForm = ({ title, button, children, text, link, linkText, onSubmit, buttonDisabled, inputsDisabled, errorsMessage }) => {
 
     return (
         <main className="sign">
@@ -15,10 +15,17 @@ const SignForm = ({ title, button, children, text, link, linkText, onSubmit }) =
             </Link>
             <h1 className="sign__title">{title}</h1>
             <form className="sign__form" onSubmit={onSubmit} noValidate>
-                <fieldset className="sign__form-set">
+                <fieldset className="sign__form-set" disabled={inputsDisabled}>
                     {children}
                 </fieldset>
-                <button type="submit" className="sign__submit-button">{button}</button>
+                <p className="sign__submit-error">{errorsMessage}</p>
+                <button
+                    type="submit"
+                    className={buttonDisabled ? "sign__submit-button sign__submit-button_disabled" : "sign__submit-button"}
+                    disabled={buttonDisabled}
+                >
+                    {button}
+                </button>
             </form>
             <div className="sign__login">
                 <p className="sign__login-text">{text}</p>

@@ -6,6 +6,16 @@
     flex-direction: column;
 }
 
+.cards__error {
+    min-height: 12px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 1.4;
+    color: #EE3465;
+}
+
 .cards__elements {
     margin: 0;
     display: flex;
@@ -32,6 +42,10 @@
     width: 320px;
 }
 
+.cards__button-more_hidden {
+    display: none;
+}
+
 .cards__button-more:hover {
     opacity: .6;
 }
@@ -39,6 +53,10 @@
 @media screen and (max-width: 908px) {
     .cards {
         margin: 0 30px 99px;
+    }
+
+    .cards__error {
+        font-size: 18px;
     }
 
     .cards__button-more {
@@ -51,6 +69,10 @@
     .cards {
         margin: 0 10px 92px;
         padding: 51px 0 0;
+    }
+
+    .cards__error {
+        font-size: 12px;
     }
 
     .cards__elements {

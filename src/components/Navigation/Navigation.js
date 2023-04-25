@@ -2,6 +2,8 @@ import './Navigation.css';
 import { Link, NavLink } from 'react-router-dom';
 import icon from '../../images/account-icon.svg';
 
+// При ширине окна браузера 908px и меньше в авторизованном состоянии появляется бургерное меню
+
 const Navigation = ({ loggedIn }) => {
     return (
         <>

@@ -1,26 +1,28 @@
+// Адрес сервера на поддомене
 export const BASE_URL = 'https://api.dzhigun.movies.nomoredomainsclub.ru';
 
-export const handleResponse = async (response) => {
-    if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status}`);
+// Адрес локального сервера 
+// export const BASE_URL = 'http://localhost:3001';
+
+export const handleResponse = (response) => {
+    if (response.ok) {
+        return response.json();
     }
-    const data = await response.json();
-    return data;
+    return Promise.reject(response);
 }
 
 // User
 
 export const getCurrentUserInfo = async () => {
-    const response = await fetch(`${BASE_URL}/me`, {
+    const response = await fetch(`${BASE_URL}/users/me`, {
         credentials: 'include',
         method: 'GET',
     });
-
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const updateUserInfo = async (data) => {
-    const response = await fetch(`${BASE_URL}/me`, {
+    const response = await fetch(`${BASE_URL}/users/me`, {
         credentials: 'include',
         method: 'PATCH',
         headers: {
@@ -29,22 +31,22 @@ export const updateUserInfo = async (data) => {
         body: JSON.stringify(data)
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 // Movies
 
 export const getSavedMovies = async () => {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/movies`, {
         credentials: 'include',
         method: 'GET',
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const addNewMovie = async (data) => {
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/movies`, {
         credentials: 'include',
         method: 'POST',
         headers: {
@@ -53,16 +55,16 @@ export const addNewMovie = async (data) => {
         body: JSON.stringify(data)
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const deleteMovie = async (id) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch(`${BASE_URL}/movies/${id}`, {
         credentials: 'include',
         method: 'DELETE',
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 // Authentication
@@ -73,23 +75,23 @@ export const register = async ({ name, email, password }) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ name, email, password }),
+        credentials: 'include'
     });
-
-    handleResponse(response);
-};
+    return handleResponse(response);
+}
 
 export const login = async ({ email, password }) => {
     const response = await fetch(`${BASE_URL}/signin`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
 
 export const signout = async () => {
@@ -98,5 +100,6 @@ export const signout = async () => {
         credentials: 'include',
     });
 
-    handleResponse(response);
+    return handleResponse(response);
 };
+

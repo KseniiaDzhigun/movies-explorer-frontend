@@ -11,6 +11,8 @@
     object-fit: cover;
     object-position: center;
     border-radius: 8px;
+    width: 360px;
+    height: 201px;
 }
 
 .movie__button {
@@ -48,7 +50,26 @@
     width: 72px;
 }
 
-.movie__element:hover .movie__button_type_save {
+.movie__button_type_delete {
+    display: none;
+    background-image: url(../../images/movies-delete-icon.svg);
+    background-color: #313131;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 21px;
+    cursor: pointer;
+}
+
+.movie__button_type_delete:hover {
+    scale: 1.4;
+}
+
+.movie__element:hover .movie__button_type_save  {
+    display: block;
+}
+
+.movie__element:hover .movie__button_type_delete  {
     display: block;
 }
 
@@ -93,6 +114,11 @@
         margin: 0;
     }
 
+    .movie__image {
+        width: 339px;
+        height: 190px;
+    }
+
     .movie__caption {
         margin: 27px 0 0;
     }
@@ -104,9 +130,24 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .movie__button_type_delete {
+        display: block;
+    }
+
+    .movie__button_type_save {
+        display: block;
+    }
+}
+
 @media screen and (max-width: 532px) {
     .movie__element {
         max-width: 300px;
+    }
+
+    .movie__image {
+        width: 300px;
+        height: 168px;
     }
 
     .movie__caption {

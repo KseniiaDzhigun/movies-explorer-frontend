@@ -99,6 +99,21 @@
     opacity: .6;
 }
 
+.profile__submit-button_disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.profile__submit-error {
+    min-height: 12px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #EE3465;
+}
+
 .profile__exit-link {
     margin: 15px auto 0;
     font-weight: 500;

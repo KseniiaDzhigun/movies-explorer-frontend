@@ -2,9 +2,9 @@ import './Login.css';
 import { useState } from 'react';
 import SignForm from '../SignForm/SignForm';
 import { useForm } from 'react-hook-form';
-import { inputOptions } from '../../utils/Constants'
+import { inputOptions } from '../../utils/Helpers';
 
-const Login = () => {
+const Login = ({ onLogin, errorsMessage, disabled }) => {
 
     const [userData, setUserData] = useState({
         email: '',
@@ -19,8 +19,13 @@ const Login = () => {
         });
     }
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    // Для управления формой используем хук useForm, валидация при каждом измененении инпута
+    const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: 'onChange' });
+    
+    const onSubmit = () => {
+        let { email, password } = userData;
+        onLogin({ email, password });
+    }
 
     return (
         <SignForm
@@ -30,29 +35,30 @@ const Login = () => {
             link="/signup"
             linkText="Регистрация"
             onSubmit={handleSubmit(onSubmit)}
+            buttonDisabled={!isDirty || !isValid || disabled} 
+            inputsDisabled={disabled}
+            errorsMessage={errorsMessage}
         >
             <label htmlFor="email-input" className="sign__label">E-mail</label>
             <input
                 value={userData.email}
                 id="email-input"
-                name="email"
                 type="email"
-                {...register("email", {...inputOptions.email, onChange: handleChange})}
                 className={errors.email ? "sign__input sign__input_error" : "sign__input"}
+                {...register("email", { ...inputOptions.email, onChange: handleChange })}
                 placeholder="Введите email"
             />
             <p className="sign__error">{errors.email ? errors.email.message : ''}</p>
 
             <label htmlFor="password-input" className="sign__label">Пароль</label>
             <input
-                value={userData.password} 
-                id="password-input" 
-                name="password"
-                type="password" 
+                value={userData.password}
+                id="password-input"
+                type="password"
                 className={errors.password ? "sign__input sign__input_error" : "sign__input"}
-                {...register("password", {...inputOptions.password, onChange: handleChange})}
+                {...register("password", { ...inputOptions.password, onChange: handleChange })}
                 placeholder="Введите пароль"
-                />
+            />
             <p className="sign__error">{errors.password ? errors.password.message : ''}</p>
         </SignForm>
     )

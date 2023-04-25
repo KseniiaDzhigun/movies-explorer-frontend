@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 const PageNotFound = () => {
 
     const navigate = useNavigate();
+
     const goBack = () => {
-        navigate(-1);
-    }
+        navigate(-3);
+    };
 
     return (
         <main className="page__content">
