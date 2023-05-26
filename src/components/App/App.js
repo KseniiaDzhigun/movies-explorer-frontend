@@ -29,7 +29,6 @@ import {
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 const App = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
   const locationPath = location.pathname;

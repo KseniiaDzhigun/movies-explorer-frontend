@@ -2,7 +2,7 @@ import './Navigation.css';
 import { Link, NavLink } from 'react-router-dom';
 import icon from '../../images/account-icon.svg';
 
-// При ширине окна браузера 908px и меньше в авторизованном состоянии появляется бургерное меню
+// With a browser window width of 908px or less, in the authorised state the burger menu appears 
 
 const Navigation = ({ loggedIn }) => {
     return (
@@ -24,7 +24,7 @@ const Navigation = ({ loggedIn }) => {
                                             isActive ? "nav__link nav__link_active nav__link_type_movie" : "nav__link nav__link_type_movie"
                                         }
                                     >
-                                        Главная
+                                        Main
                                     </NavLink>
                                 </li>
                                 <li className="nav__list-item">
@@ -34,7 +34,7 @@ const Navigation = ({ loggedIn }) => {
                                             isActive ? "nav__link nav__link_active nav__link_type_movie" : "nav__link nav__link_type_movie"
                                         }
                                     >
-                                        Фильмы
+                                        Movies
                                     </NavLink>
                                 </li>
                                 <li className="nav__list-item">
@@ -44,7 +44,7 @@ const Navigation = ({ loggedIn }) => {
                                             isActive ? "nav__link nav__link_active nav__link_type_movie" : "nav__link nav__link_type_movie"
                                         }
                                     >
-                                        Сохранённые фильмы
+                                        Saved Movies
                                     </NavLink>
                                 </li>
                                 <li className="nav__list-item">
@@ -56,10 +56,10 @@ const Navigation = ({ loggedIn }) => {
                                     >
                                         <img
                                             src={icon}
-                                            alt="Иконка аккаунта пользователя"
+                                            alt="User account icon"
                                             className="nav__icon"
                                         />
-                                        Аккаунт
+                                        Profile
                                     </NavLink>
                                 </li>
                             </ul>
@@ -69,10 +69,10 @@ const Navigation = ({ loggedIn }) => {
                     <nav className="nav nav_type_main">
                         <ul className="nav__links nav__links_type_sign">
                             <li>
-                                <Link to="/signup" className="nav__link nav__link_type_main" >Регистрация</Link>
+                                <Link to="/signup" className="nav__link nav__link_type_main" >SIGN UP</Link>
                             </li>
                             <li>
-                                <Link to="/signin" className="nav__link nav__link_type_main nav__link_type_signin" >Войти</Link>
+                                <Link to="/signin" className="nav__link nav__link_type_main nav__link_type_signin" >SIGN IN</Link>
                             </li>
                         </ul>
                     </nav>

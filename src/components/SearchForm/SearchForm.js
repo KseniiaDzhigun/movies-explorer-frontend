@@ -10,7 +10,7 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus, disable
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    // Если в LocalStorage сохранен текст запроса, вставляем его в строку поиска при перезагрузке страницы
+    // If the query text is saved in the LocalStorage, insert it in the search bar when the page reloads
     const [userData, setUserData] = useState(savedRequest ? savedRequest : '')
 
     const handleChange = (e) => {
@@ -26,7 +26,7 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus, disable
             <fieldset className="search__form-set" disabled={disabled}>
                 <img
                     src={icon}
-                    alt="Лупа"
+                    alt="Loupe"
                     className="search__icon"
                 />
                 <div className="search__input-text">
@@ -36,7 +36,7 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus, disable
                         name="movieReq"
                         {...register("movieReq", { ...inputOptions.movie, onChange: handleChange })}
                         className={errors.movieReq ? "search__input search__input_error" : "search__input"}
-                        placeholder="Фильм"
+                        placeholder="Movie"
                     />
                     <p className="search__error">{errors.movieReq ? errors.movieReq.message : ''}</p>
                 </div>
@@ -44,10 +44,10 @@ const SearchForm = ({ onSearch, onCheck, savedRequest, savedCheckStatus, disable
             </fieldset>
             <img
                 src={border}
-                alt="Разделитель"
+                alt="Border"
                 className="search__border"
             />
-            <FilterCheckbox onCheck={onCheck} savedCheckStatus={savedCheckStatus} disabled={disabled}/>
+            <FilterCheckbox onCheck={onCheck} savedCheckStatus={savedCheckStatus} disabled={disabled} />
         </form>
     );
 }

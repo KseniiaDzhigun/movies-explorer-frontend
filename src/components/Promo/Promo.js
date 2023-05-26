@@ -8,13 +8,13 @@ const Promo = () => {
             <div className="promo__content">
                 <div className="promo__info">
                     <h1 className="promo__title">
-                        Учебный проект студента факультета Веб&#8209;разработки.
+                        Diploma project at the faculty of Web Development in Yandex Praktikum.
                     </h1>
                     <p className="promo__text">
-                        Листайте ниже, чтобы узнать больше про этот проект и его создателя.
+                        Scroll down to find out more about this project and its creator.
                     </p>
                     <AnchorLink href="#about" className="promo__link">
-                        Узнать больше
+                        Learn more
                     </AnchorLink>
                 </div>
                 <div className="rotation promo__logo"></div>

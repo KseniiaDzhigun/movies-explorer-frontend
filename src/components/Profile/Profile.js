@@ -39,12 +39,12 @@ const Profile = ({ loggedIn, onLogout, onUpdate, disabled }) => {
         <>
             <Header loggedIn={loggedIn} />
             <main className="profile__content">
-                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+                <h1 className="profile__title">Hello, {currentUser.name}!</h1>
                 <form className="profile__form" onSubmit={handleSubmit(onSubmit)} >
                     <fieldset className="profile__form-set" disabled={disabled}>
 
                         <div className="profile__field">
-                            <label htmlFor="name-input" className="profile__label">Имя</label>
+                            <label htmlFor="name-input" className="profile__label">Name</label>
                             <div className="profile__input-text">
                                 <input
                                     value={userData.name}
@@ -53,7 +53,7 @@ const Profile = ({ loggedIn, onLogout, onUpdate, disabled }) => {
                                     type="text"
                                     className={errors.name ? "profile__input profile__input_error" : "profile__input"}
                                     {...register("name", { ...inputOptions.name, onChange: handleChange })}
-                                    placeholder="Имя пользователя"
+                                    placeholder="User name"
                                 />
                                 <p className="profile__error">{errors.name ? errors.name.message : ''}</p>
                             </div>
@@ -78,10 +78,10 @@ const Profile = ({ loggedIn, onLogout, onUpdate, disabled }) => {
                         type="submit"
                         disabled={submitButtonDisabled}
                         className={submitButtonDisabled ? "profile__submit-button profile__submit-button_disabled" : "profile__submit-button"} >
-                        Редактировать
+                        EDIT PROFILE
                     </button>
                 </form>
-                <Link to="/signin" onClick={onLogout} className="profile__exit-link">Выйти из аккаунта</Link>
+                <Link to="/signin" onClick={onLogout} className="profile__exit-link">SIGN OUT</Link>
             </main>
             <Footer />
         </>

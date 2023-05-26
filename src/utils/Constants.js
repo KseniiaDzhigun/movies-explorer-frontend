@@ -7,11 +7,11 @@ const REGISTER_ROUTE = "/signup";
 const LOGIN_ROUTE = "/signin";
 
 // Error message
-const ERROR_MESSAGE='Что-то пошло не так! Попробуйте ещё раз.';
-const SUCCESS_LOGOUT_MESSAGE='Вы успешно вышли из учетной записи!';
-const UPDATE_PROFILE_MESSAGE='Данные профиля успешно изменены';
-const ERROR_SERVER_MESSAGE='Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
-const NOT_FOUND_MESSAGE='Ничего не найдено';
+const ERROR_MESSAGE='Something went wrong! Try again.';
+const SUCCESS_LOGOUT_MESSAGE='You have successfully logged out!';
+const UPDATE_PROFILE_MESSAGE='Profile changed successfully';
+const ERROR_SERVER_MESSAGE='Error occurred during the request. There may be a problem with connection or server is unavailable. Please wait a moment and try again';
+const NOT_FOUND_MESSAGE='Not found';
 
 // URL
 const MOVIES_URL = 'https://api.nomoreparties.co';
